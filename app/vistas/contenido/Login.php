@@ -4,7 +4,7 @@
 
 <div class="contenedorCentral">
     <div class="registro">
-        <form action="index.php?ctl=Validar&action=insert&id=registro" method="post">
+        <form action="index.php?ctl=Procesar&form=nuevo_usuario&cat=i" method="post">
             <fieldset><legend>Registrarse</legend>
 
                 <div class="form-group">

@@ -3,7 +3,7 @@
 <div class="contenedorCentral">
     <article>
         
-                    <form action="index.php?ctl=Procesar&form=nuevo&cat=generalidades" method="POST" >
+                    <form action="index.php?ctl=Procesar&form=nuevo_proyecto&cat=i" method="POST" >
                         <fieldset><legend>Crear proyecto</legend>
      
                            <div class="form-group">

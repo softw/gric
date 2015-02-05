@@ -306,7 +306,7 @@ class Modelo
     */
     
     
-    public function insertarUsuario($email,$password)
+    public static function insertarUsuario($email,$password)
     {
         try
         {
@@ -332,7 +332,7 @@ class Modelo
     }//FIN INSERTARUSUARIO()
     
     
-    //NO FUNCIONA
+    
     public static function insertar_generalidades($id_usuario,$titulo,$convocatoria,$programa,$tipo_f,$duracion,$lugar,$ben_camp,$descripcion)
     {
         try

@@ -48,16 +48,16 @@ class Validar
   
   
     
-    public static function form_nuevo_proyecto($form_generalidades){
+    public static function form_nuevo_proyecto($form_nuevo_proyecto){
         
         $resultado['valido']=FALSE;
-        $resultado['titulo']= is_string($form_generalidades['titulo']);
-        $resultado['convocatoria']= is_string($form_generalidades['convocatoria']);
-        $resultado['programa']= is_string($form_generalidades['programa']);
-        $resultado['tipo']= is_string($form_generalidades['tipo_f']);
-        $resultado['duracion']= is_int($form_generalidades['duracion']);
-        $resultado['lugar']= is_string($form_generalidades['lugar']);
-        $resultado['descripcion']= is_string($form_generalidades['descripcion']);
+        $resultado['titulo']= is_string($form_nuevo_proyecto['titulo']);
+        $resultado['convocatoria']= is_string($form_nuevo_proyecto['convocatoria']);
+        $resultado['programa']= is_string($form_nuevo_proyecto['programa']);
+        $resultado['tipo']= is_string($form_nuevo_proyecto['tipo_f']);
+        $resultado['duracion']= is_int($form_nuevo_proyecto['duracion']);
+        $resultado['lugar']= is_string($form_nuevo_proyecto['lugar']);
+        $resultado['descripcion']= is_string($form_nuevo_proyecto['descripcion']);
       
         if($resultado['titulo']&&$resultado['convocatoria']&& $resultado['programa']&&
                 $resultado['tipo']&&$resultado['duracion']&&$resultado['lugar']&&$resultado['descripcion'])

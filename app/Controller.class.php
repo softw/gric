@@ -43,9 +43,22 @@ class Controller
         require 'controlador/nuevo_proyecto.controller.php';
     }
      
-    public function procesar_form()
+    public function procesar_formulario()
     {
-        require 'controlador/procesar_formulario.php';
+        //form, categoria
+        //definir el tipo de formulario para llamar al metodo correspondiente
+        $formulario= htmlentities(addslashes($_GET['form']));
+        $categoria= htmlentities(addslashes($_GET['cat']));
+        require 'controlador/procesar_formulario.controller.php';
+        if($formulario== "nuevo_proyecto")
+        {
+            $metodo= nuevo_proyecto($categoria);
+        }
+        if($formulario== "nuevo_usuario")
+        {
+            $metodo= nuevo_usuario($categoria);
+        }
+        
     }
 }
 
