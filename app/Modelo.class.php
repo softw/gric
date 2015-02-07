@@ -98,7 +98,7 @@ class Modelo
         try
         {   
             $dbh = Conexion::singleton_conexion();
-            $sql = "SELECT id,id_usuario,titulo,descripcion,ultima_actualizacion FROM proyecto_generalidades ORDER BY fecha_publicacion DESC";
+            $sql = "SELECT id,id_usuario,titulo,descripcion,fecha_publicacion FROM proyecto_generalidades ORDER BY fecha_publicacion DESC";
             $query=$dbh->prepare($sql);
             
            // $query=$this->conexion->prepare($sql);
@@ -124,7 +124,7 @@ class Modelo
         try
         {
             $dbh = Conexion::singleton_conexion();
-            $sql = "SELECT id,id_usuario,titulo,descripcion,ultima_actualizacion FROM proyecto_generalidades WHERE id_usuario=$id_usuario ORDER BY fecha_publicacion DESC";
+            $sql = "SELECT id,id_usuario,titulo,descripcion,fecha_publicacion FROM proyecto_generalidades WHERE id_usuario=$id_usuario ORDER BY fecha_publicacion DESC";
             $query=$dbh->prepare($sql);
            // $query->bindParam('id',$_SESSION['id_usuario']);
             $query->execute();

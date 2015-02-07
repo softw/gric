@@ -85,13 +85,13 @@
     </div>
 
     <div class="login">
-        <form action="index.php?ctl=Validar&action=insert&id=login" method="POST">
+        <form action="index.php?ctl=Procesar&form=login&cat=s" method="POST">
             <fieldset><legend>Iniciar sesión</legend>
                 <div class="form-group">
-                    <?php if(isset($form_login['email_invalido'])): ?>
+                    <?php if(isset($_GET['error']) && $_GET['error']=="ei"): ?>
                     <p class="error">Parece que escribiste mal tu correo</p>
                     <?php endif; 
-                    if(isset($form_login['email_no_existe'])):?>
+                    if(isset($_GET['error']) && $_GET['error'] == "ee"):?>
                     <p class="error">El usuario no existe en la base de datos</p>
                     <?php endif; ?>
                     <input class="input" type="email" name="txtEmail"

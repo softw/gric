@@ -23,10 +23,10 @@ $map = [
     'Personas'    =>  ['controller'=>'Controller', 'action'=>'crear_p_personas'],
     'Cronograma'  =>  ['controller'=>'Controller', 'action'=>'crear_p_cronograma'],
     'Resultados'  =>  ['controller'=>'Controller', 'action'=>'detalles'],
-    'Validar'     =>  ['controller'=>'Controller', 'action'=>'validar_formulario'],/*procesa todos los formularios*/
     '404'         =>  ['controller'=>'Controller', 'action'=>'crear_p_error'],
     'Nuevo_proyecto'=> ['controller'=>'Controller','action'=>'crear_p_nuevo_proyecto'],
-    'Procesar'    =>  ['controller'=>'Controller', 'action'=>'procesar_formulario']
+    'Procesar'    =>  ['controller'=>'Controller', 'action'=>'procesar_formulario'],/*procesa todos los formularios*/
+    'Detalles'    =>  ['controller'=>'Controller', 'action'=>'crear_p_detalles']
 ];
 
  // Parseo de la ruta

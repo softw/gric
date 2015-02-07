@@ -46,7 +46,7 @@
     
 	<section>
             <p class="ruta"><?php echo $GLOBALS['ruta']; ?></p>
-            <?php if(isset($_GET['cat'])&&$_GET['cat']=="detalles"): ?>  
+            <?php if(isset($_GET['ctl'])&&$_GET['ctl']=="Detalles"): ?>  
             <nav id="menuProyecto" class="menuVertical">
                 <a href="index.php?ctl=Detalles&cat=generalidades&id=<?php echo $_SESSION['id_proyecto'] ?>&titulo=<?php echo $titulo  ?>">Generalidades</a>
                 <a href="index.php?ctl=Detalles&cat=descripciones&id=<?php echo $_SESSION['id_proyecto'] ?>&titulo=<?php echo $titulo  ?>">Descripciones</a>

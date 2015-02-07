@@ -27,10 +27,18 @@ class Controller
         require 'controlador/listado.controller.php';
     }
     
-    public function validar_formulario()
+    public function crear_p_detalles()
     {
-        require 'controlador/validar.controller.php';
-               
+        $cat=  htmlentities(addslashes($_GET['cat']));
+        $id= htmlentities(addslashes($_GET['id']));
+        $titulo=  trim($_GET['titulo']);
+        switch ($cat)
+        {
+            case "generalidades":
+                require 'controlador/generalidades.controller.php';
+                break;
+        }
+        
     }
     
     public function crear_p_generalidades()
@@ -44,20 +52,27 @@ class Controller
     }
      
     public function procesar_formulario()
-    {
-        //form, categoria
+    {   
+        require 'controlador/procesar_formulario.controller.php';
+        //form= tipo de formulario
+        //cat= si es update, insert o select
         //definir el tipo de formulario para llamar al metodo correspondiente
         $formulario= htmlentities(addslashes($_GET['form']));
         $categoria= htmlentities(addslashes($_GET['cat']));
-        require 'controlador/procesar_formulario.controller.php';
-        if($formulario== "nuevo_proyecto")
+        
+        switch ($formulario)
         {
-            $metodo= nuevo_proyecto($categoria);
+            case "nuevo_proyecto":
+                $metodo= procesar_form_nuevo_proyecto($categoria);
+                break;
+            case "nuevo_usuario":
+                $metodo= procesar_form_nuevo_usuario($categoria);
+                break;
+            case "login":
+                $metodo= procesar_form_login();
+                break;
         }
-        if($formulario== "nuevo_usuario")
-        {
-            $metodo= nuevo_usuario($categoria);
-        }
+      
         
     }
 }
