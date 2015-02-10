@@ -1,5 +1,81 @@
 <?php
-require '/../Validar.class.php';
+
+    //form= tipo de formulario
+    //cat= si es update, insert o select
+    //definir el tipo de formulario para llamar al metodo correspondiente
+    $formulario= htmlentities(addslashes($_GET['form']));
+    $categoria= htmlentities(addslashes($_GET['cat']));
+
+    switch ($formulario)
+    {
+        case "nuevo_proyecto":
+            $metodo= procesar_form_nuevo_proyecto($categoria);
+            break;
+        case "nuevo_usuario":
+            $metodo= procesar_form_nuevo_usuario($categoria);
+            break;
+        case "login":
+            $metodo= procesar_form_login();
+            break;
+    }
+
+function procesar_form_login()
+{
+    if(isset($_SESSION['id_usuario']))
+    {
+        header("location:index.php?ctl=Inicio");
+    }
+    $form_login= Procesar::form_login();
+    if($form_login['ctl']=="Inicio")
+    {
+        header ("location:index.php?ctl=Inicio");
+        die();
+    }
+    if($form_login['ctl']=="Login")
+    {
+        //los errores estan en el array $form_login
+       $GLOBALS['ruta']="Error de inicio de sesión";
+       $GLOBALS['titulo']="Error de inicio de Sesión";
+       require("/../vistas/contenido/Login.php");
+    }
+}
+
+function procesar_form_nuevo_usuario()
+{
+    $form_nuevo_usuario= Procesar::form_nuevo_usuario();
+    if($form_nuevo_usuario['ctl']=="Inicio")
+    {
+        header("location:index.php?ctl=Inicio");
+        die();
+    }
+    if($form_nuevo_usuario['ctl']=="Login")
+    {
+        //los errores estan en el array $form_nuevo_usuario
+        $GLOBALS['ruta']="Error en el formulario de registro";
+        $GLOBALS['titulo']="Error";
+        require("/../vistas/contenido/Login.php");
+        die();
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function procesar_form_nuevo_proyecto()//metodo para insertar un proyecto nuevo en la bd primero se valida
 {
     $form_nuevo_proyecto=[];
@@ -29,62 +105,6 @@ function procesar_form_nuevo_proyecto()//metodo para insertar un proyecto nuevo 
        
 }//fin metodo para insertar nuevo proyecto
 
-function procesar_form_nuevo_usuario()
-{
-    $form_nuevo_usuario=[];
-    $form_nuevo_usuario['valido'] =FALSE;
-    $form_nuevo_usuario['nombre']=       htmlentities(addslashes($_POST['txtNombre']));
-    $form_nuevo_usuario['pApellido']= htmlentities(addslashes($_POST['txtConvocatoria']));
-    $form_nuevo_usuario['sApellido']=     htmlentities(addslashes($_POST['txtPrograma']));
-    $form_nuevo_usuario['tDocumento']=         htmlentities(addslashes($_POST['txtTipo']));
-    $form_nuevo_usuario['nDocumento']=     htmlentities(addslashes($_POST['txtDuracion']));
-    $form_nuevo_usuario['email']=        htmlentities(addslashes($_POST['txtEmail']));
-    $form_nuevo_usuario['password']=    md5(sha1($_POST['txtPassword']));
-   //la validacion para despues 
-   // $formulario_valido= Validar::form_nuevo_usuario($form_nuevo_usuario);
-    $formulario_valido['valido']= TRUE;
-    
-    if($formulario_valido['valido'])
-    {
-        Modelo::insertarUsuario($form_nuevo_usuario['email'], $form_nuevo_usuario['password']);
-         require 'login.controller.php';
-    }else
-    {
-        header('location:index.php?ctl=login&error=');
-    }
-    
-}
 
- function procesar_form_login()
-{
-     $formulario_login=[];
-     $formulario_login['valido']= FALSE;
-     $formulario_login['email']= htmlentities(addslashes($_POST['txtEmail'])); 
-     $formulario_login['password']= md5(sha1($_POST['txtPassword']));
-     //validacion del formulario
-     $formulario_valido=  Validar::form_login($formulario_login['email']);
-        if($formulario_valido['valido'])
-        {
-            //comprobamos si existe el email ingresado en la bd
-            if(Modelo::email_existe($formulario_login['email']))
-                {
-                  //comprobamos si el email coincide con el pass
-                    if(Modelo::validar_password($formulario_login['email'],$formulario_login['password']))
-                        {
-                             header('location:index.php?ctl=Inicio');
-                        }else{
-                            //si el password no coincide
-                            header('location:index.php?ctl=Login&form=login&error=pi');
-                        }
-                
-                    }else{
-                            //el email no existe en la bd
-                            header('location:index.php?ctl=Login&form=login&error=ee');
-                        }        
-        }else{
-            //el email no corresponde con el formato requerido
-            header('location:index.php?ctl=Login&form=login&error=ei');//ei = email invalido
-        }
-        
-    
-}
+
+ 

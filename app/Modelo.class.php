@@ -20,6 +20,29 @@ class Modelo
    * SELECT
    */
     
+    public static function es_admin($id_proyecto, $id_usuario)
+    {
+        try {  
+            
+            $dbh = Conexion::singleton_conexion();
+            $sql = "SELECT titulo FROM proyecto_generalidades WHERE id ='$id_proyecto' and id_usuario=$id_usuario ";
+            $query = $dbh->prepare($sql);        
+            $query->execute();
+            $dbh = null;
+            if($query->rowCount() === 1)
+            {
+                return TRUE;
+            }   
+            else
+            {
+                return FALSE;
+            }
+        }
+        catch(PDOException $e){   
+            print "Error!: " . $e->getMessage();  
+        }   
+        
+    }
     
     public static function email_existe($email)//verifica se existe el usuario en la bd
     {
@@ -147,7 +170,7 @@ class Modelo
     
     
     
-    public function listarGeneralidades($id_proyecto)
+    public static function listar_generalidades($id_proyecto)
     {
         try
         {
@@ -160,9 +183,9 @@ class Modelo
             {
                 while($reg =$query->fetch())
                 {
-                    $this->generalidades[]=$reg;
+                    $generalidades[]=$reg;
                 }
-                return $this->generalidades;
+                return $generalidades;
             }
         } 
         catch (Exception $e)
@@ -173,7 +196,7 @@ class Modelo
         
     }//fin listarGeneralidades()
     
-     public function listarDescripciones($id_proyecto)
+     public static function listar_descripciones($id_proyecto)
     {
         try
         {
@@ -186,10 +209,14 @@ class Modelo
             {
                 while($reg =$query->fetch())
                 {
-                    $this->descripciones[]=$reg;
+                    $descripciones[]=$reg;
                 }
-                return $this->descripciones;
+                return $descripciones;
             }
+            else{
+                return FALSE;
+            }
+           
         } 
         catch (Exception $e)
         {
@@ -197,7 +224,7 @@ class Modelo
         }  
        
         
-    }//fin listarGeneralidades()
+    }//fin listar_descripciones()
     
     public function listarPersonas($id_proyecto)
     {
@@ -306,7 +333,7 @@ class Modelo
     */
     
     
-    public static function insertarUsuario($email,$password)
+    public static function insertar_usuario($email,$password)
     {
         try
         {

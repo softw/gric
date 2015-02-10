@@ -16,7 +16,7 @@
         <div class="titulop">
             <h2><?php echo $proyecto['titulo'] ?></h2>
             <h3>
-                <a href="index.php?ctl=Detalles&cat=generalidades&id=<?php echo $proyecto['id'] ?>&titulo=<?php echo $proyecto['titulo'] ?>">Descripción</a>
+                <a href="index.php?ctl=Detalles&cat=generalidades&id=<?php echo $proyecto['id'] ?>">Descripción</a>
             </h3>
         </div>
         <div class="descripion">

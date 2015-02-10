@@ -13,7 +13,7 @@
 
 
                 <div class="form-group"> 
-                    <?php if(isset($validado)&&$validado['nombre']==FALSE): ?>
+                    <?php if(isset($form_nuevo_usuario)): ?>
                     <p class="error">El nombre no tiene el formato correcto</p>
                     <?php endif;?>
                     <label for="nombre">Nombre</label>
@@ -88,10 +88,10 @@
         <form action="index.php?ctl=Procesar&form=login&cat=s" method="POST">
             <fieldset><legend>Iniciar sesión</legend>
                 <div class="form-group">
-                    <?php if(isset($_GET['error']) && $_GET['error']=="ei"): ?>
+                    <?php if(isset($form_login['email_mal_formato'])): ?>
                     <p class="error">Parece que escribiste mal tu correo</p>
                     <?php endif; 
-                    if(isset($_GET['error']) && $_GET['error'] == "ee"):?>
+                    if(isset($form_login['email_no_existe'])):?>
                     <p class="error">El usuario no existe en la base de datos</p>
                     <?php endif; ?>
                     <input class="input" type="email" name="txtEmail"

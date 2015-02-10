@@ -48,14 +48,14 @@
             <p class="ruta"><?php echo $GLOBALS['ruta']; ?></p>
             <?php if(isset($_GET['ctl'])&&$_GET['ctl']=="Detalles"): ?>  
             <nav id="menuProyecto" class="menuVertical">
-                <a href="index.php?ctl=Detalles&cat=generalidades&id=<?php echo $_SESSION['id_proyecto'] ?>&titulo=<?php echo $titulo  ?>">Generalidades</a>
-                <a href="index.php?ctl=Detalles&cat=descripciones&id=<?php echo $_SESSION['id_proyecto'] ?>&titulo=<?php echo $titulo  ?>">Descripciones</a>
-                <a href="index.php?ctl=Detalles&cat=personas&id=<?php echo $_SESSION['id_proyecto'] ?>&titulo=<?php echo $titulo  ?>">Personas</a>
-                <a href="index.php?ctl=Detalles&cat=entidades&id=<?php echo $_SESSION['id_proyecto'] ?>&titulo=<?php echo $titulo  ?>">Entidades</a>
-                <a href="index.php?ctl=Detalles&cat=presupuesto&id=<?php echo $_SESSION['id_proyecto'] ?>&titulo=<?php echo $titulo  ?>">Presupuesto</a>
-                <a href="index.php?ctl=Detalles&cat=cronograma&id=<?php echo $_SESSION['id_proyecto'] ?>&titulo=<?php echo $titulo  ?>">Cronograma</a>
-                <a href="index.php?ctl=Detalles&cat=resultados&id=<?php echo $_SESSION['id_proyecto'] ?>&titulo=<?php echo $titulo  ?>">Resultados</a>
-                <a href="index.php?ctl=Detalles&cat=impactos&id=<?php echo $_SESSION['id_proyecto'] ?>&titulo=<?php echo $titulo  ?>">Impactos</a>        
+                <a href="index.php?ctl=Detalles&cat=generalidades&id=<?php echo $_SESSION['id_proyecto'] ?>">Generalidades</a>
+                <a href="index.php?ctl=Detalles&cat=descripciones&id=<?php echo $_SESSION['id_proyecto'] ?>">Descripciones</a>
+                <a href="index.php?ctl=Detalles&cat=personas&id=<?php echo $_SESSION['id_proyecto'] ?>">Personas</a>
+                <a href="index.php?ctl=Detalles&cat=entidades&id=<?php echo $_SESSION['id_proyecto'] ?>">Entidades</a>
+                <a href="index.php?ctl=Detalles&cat=presupuesto&id=<?php echo $_SESSION['id_proyecto'] ?>">Presupuesto</a>
+                <a href="index.php?ctl=Detalles&cat=cronograma&id=<?php echo $_SESSION['id_proyecto'] ?>">Cronograma</a>
+                <a href="index.php?ctl=Detalles&cat=resultados&id=<?php echo $_SESSION['id_proyecto'] ?>">Resultados</a>
+                <a href="index.php?ctl=Detalles&cat=impactos&id=<?php echo $_SESSION['id_proyecto'] ?>">Impactos</a>        
             </nav>
             <div class="contenedorSecu">
 

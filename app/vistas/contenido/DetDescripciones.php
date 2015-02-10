@@ -1,10 +1,30 @@
 <?php ob_start() ;?>
 
         <h3>Descripciones</h3>    
-                      
+           <?php if($params['descripciones']==FALSE):?>
+              <article class="detalles">
+                <table class="table table-bordered table-hover">
+                    <tr>    
+                        <th>No hay datos</th>
+                       
+                         <th></th>
+                    </tr>
+                    <tr>
+                       <td>
+                        <?php if($esAdmin == TRUE): ?>
+                           <a href="index.php?ctl=Detalles&cat=descripciones&id_des=obj_general&id=<?php echo $_SESSION['id_proyecto'] ?>&titulo=<?php echo $titulo ?>&crear=TRUE">Agregar objetivo general</a>
+                        <?php else: echo "sin datos"; endif;?>
+                        </td>  
+                    </tr>
+                </table>
+            </article>  
+        <?php else:
+                    foreach($params['descripciones'] as $proyecto):?>
+                     
             <article class="detalles">
                 <table class="table table-bordered table-hover">
                     <tr>
+                        
                         <th>Objetivo general</th>
                         <th>
                         <?php if($esAdmin==TRUE&&!empty($proyecto['obj_general'])):?>
@@ -208,8 +228,9 @@
                 </table>
             </article>
  
-<?php endif;?>
+            <?php endif;?>
+        <?php     endforeach;?>
+        <?php     endif;?>
    
- <?php $contenido = ob_get_clean() ;
- 
- include '/../layout/base.php';
+<?php $contenido = ob_get_clean() ;
+  include'/../plantillas/base.php';

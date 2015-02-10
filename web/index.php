@@ -1,13 +1,14 @@
 <?php
- 
  // index.php
+ 
 session_start();
  // carga del modelo y los controladores
- //require '/../app/Validaciones.class.php';
- //require '/../app/Procesar.class.php';
+ require '/../app/Validar.class.php';
+ require '/../app/Procesar.class.php';
 require "/../app/Conexion.class.php";
  require "/../app/Modelo.class.php";
  require "/../app/Controller.class.php";
+ require "/../app/detalles.class.php";
  
  // enrutamiento
 $map = [
@@ -16,13 +17,8 @@ $map = [
     'Listado'     =>  ['controller'=>'Controller', 'action'=>'crear_p_listado'],
     'Login'       =>  ['controller'=>'Controller', 'action'=>'crear_p_login_registro'],
     'Perfil'      =>  ['controller'=>'Controller', 'action'=>'crear_p_perfil'], 
-    'Form_crear'  =>  ['controller'=>'Controller', 'action'=>'crear'],
-    'Form_editar' =>  ['controller'=>'Controller', 'action'=>'editar'],
-    'Generalidades'=> ['controller'=>'Controller', 'action'=>'crear_p_generalidades'],
-    'Descripciones'=> ['controller'=>'Controller', 'action'=>'crear_p_descripciones'],
-    'Personas'    =>  ['controller'=>'Controller', 'action'=>'crear_p_personas'],
-    'Cronograma'  =>  ['controller'=>'Controller', 'action'=>'crear_p_cronograma'],
-    'Resultados'  =>  ['controller'=>'Controller', 'action'=>'detalles'],
+    'Nuevo'       =>  ['controller'=>'Controller', 'action'=>'crear_p_formularios_insert'],
+    'Editar'      =>  ['controller'=>'Controller', 'action'=>'crear_p_formularios_update'],
     '404'         =>  ['controller'=>'Controller', 'action'=>'crear_p_error'],
     'Nuevo_proyecto'=> ['controller'=>'Controller','action'=>'crear_p_nuevo_proyecto'],
     'Procesar'    =>  ['controller'=>'Controller', 'action'=>'procesar_formulario'],/*procesa todos los formularios*/

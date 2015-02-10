@@ -28,13 +28,13 @@ class Validar
          return $resultado;        
     }
   
-    public static function form_registro($form_registro)
+    public static function form_nuevo_usuario($form_registro)
     {
         $resultado['valido']=FALSE;
         $resultado['nombre']= is_string($form_registro['nombre']);
         $resultado['pApellido']= is_string($form_registro['pApellido']);
         $resultado['sApellido']= is_string($form_registro['sApellido']);
-        $resultado['numero']= is_numeric($form_registro['numero']);
+        $resultado['numero']= is_numeric($form_registro['nDocumento']);
         $resultado['email']=self:: is_email_sena($form_registro['email']);
       
         if($resultado['nombre']&&$resultado['pApellido']&&
@@ -80,6 +80,8 @@ class Validar
             header("location:index.php?ctl=Crear&cat=descripciones&id=$id&titulo=$titulo");
         }
     }
+    
+  
 }
 
 
