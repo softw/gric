@@ -306,24 +306,25 @@ class Modelo
         
     }//fin metodo update_generalidades
     
-    public function updateProyectoDescripciones($clave,$valor,$id_proyecto)//$clave es el nombre del campo en la bd, valor es el nombre del input
+  
+    
+     public static function actualizar_descripcion($clave,$valor,$id_proyecto)
     {
         try{
             
             $conexion = Conexion::singleton_conexion();
-            $sql="UPDATE proyecto_descripciones SET $clave='$valor'";
-            $sql.= "WHERE id_proyecto=$id_proyecto";            
+            $sql="UPDATE proyecto_descripciones SET $clave = '$valor' WHERE id_proyecto = $id_proyecto";          
             $query =$conexion->prepare($sql);
             $filasafectadas=$query->execute();
             $conexion= null;
             if($filasafectadas > 0): return true;           
-            else: return false;            endif;
+                else: return false;           
+            endif;
         } 
         catch (Exception $ex) 
         {
             print "Error!: " . $ex->getMessage();
-        }
-        
+        } 
     }
     
     
@@ -369,12 +370,26 @@ class Modelo
             $sql.= "VALUES (NULL,$id_usuario,'$titulo','$descripcion','$convocatoria','$programa','$tipo_f',$duracion,'$lugar','$ben_camp',CURRENT_TIMESTAMP)";            
             $query =$conexion->prepare($sql);
             $filasafectadas=$query->execute();
-            $conexion= null;
-            if($filasafectadas > 0):            
-               return true;                       
-            else :           
-                return false;
-            endif;
+             
+            if($filasafectadas > 0)
+            {
+                $sql="SELECT id from proyecto_generalidades order by id DESC LIMIT 1";
+                $query = $conexion->prepare($sql);
+                $query->execute();
+                $dbh=null;
+                 while($reg =$query->fetch())
+                {
+                    $ultimo_id[]=$reg;
+                }
+                $id=$ultimo_id[0];
+                return $id;
+               
+            }else
+            {
+                $conexion= null;
+                return FALSE;
+            }
+           
         } 
         catch (Exception $ex) 
         {
@@ -383,7 +398,7 @@ class Modelo
         
     }//fin insertarProyectoGeneralidades()
     
-       public function agregarProyectoDescripciones($objGeneral,$id_proyecto)//$clave es el nombre del campo en la bd, valor es el nombre del input
+    public function agregarProyectoDescripciones($objGeneral,$id_proyecto)//$clave es el nombre del campo en la bd, valor es el nombre del input
     {
         try{
             
@@ -401,6 +416,25 @@ class Modelo
             print "Error!: " . $ex->getMessage();
         }
         
+    }
+    
+    public static function insertar_descripcion($clave,$valor,$id_proyecto)
+    {
+        try{
+            
+            $conexion = Conexion::singleton_conexion();
+            $sql="INSERT INTO proyecto_descripciones(id_proyecto, $clave) VALUES ($id_proyecto,'$valor')";           
+            $query =$conexion->prepare($sql);
+            $filasafectadas=$query->execute();
+            $conexion= null;
+            if($filasafectadas > 0): return true;           
+                else: return false;           
+            endif;
+        } 
+        catch (Exception $ex) 
+        {
+            print "Error!: " . $ex->getMessage();
+        } 
     }
     
 }

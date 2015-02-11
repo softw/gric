@@ -81,6 +81,81 @@ class Procesar
     
         return $form_nuevo_usuario;
     }//fin form_nuevo_usuario
+    
+    public static function form_nuevo_proyecto()
+    {
+        $form_nuevo_proyecto=[];
+        $form_nuevo_proyecto['valido'] =FALSE;
+        $form_nuevo_proyecto['titulo']=       htmlentities(addslashes($_POST['txtTitulo']));
+        $form_nuevo_proyecto['convocatoria']= htmlentities(addslashes($_POST['txtConvocatoria']));
+        $form_nuevo_proyecto['programa']=     htmlentities(addslashes($_POST['txtPrograma']));
+        $form_nuevo_proyecto['tipo_f']=         htmlentities(addslashes($_POST['txtTipo']));
+        $form_nuevo_proyecto['duracion']=     htmlentities(addslashes($_POST['txtDuracion']));
+        $form_nuevo_proyecto['lugar']=        htmlentities(addslashes($_POST['txtLugar']));
+        $form_nuevo_proyecto['ben_camp']=    htmlentities(addslashes($_POST['beneficia']));
+        $form_nuevo_proyecto['descripcion']=       htmlentities(addslashes($_POST['txaDescripcion']));
+        $form_nuevo_proyecto['id_usuario']= $_SESSION['id_usuario'];
+
+        //la validacion para despues 
+        // $formulario_valido= Validar::form_nuevo_proyecto($form_nuevo_proyecto);
+        $formulario_valido['valido']= TRUE;
+
+        if($formulario_valido['valido'])
+        {
+           $resultado=Modelo::insertar_generalidades($form_nuevo_proyecto['id_usuario'],$form_nuevo_proyecto['titulo'], $form_nuevo_proyecto['convocatoria'], $form_nuevo_proyecto['programa'], $form_nuevo_proyecto['tipo_f'], $form_nuevo_proyecto['duracion'], $form_nuevo_proyecto['lugar'], $form_nuevo_proyecto['ben_camp'], $form_nuevo_proyecto['descripcion']);
+          if($resultado==FALSE)
+           {//si no se inserto nada en la bd
+               $form_nuevo_proyecto['error']="desconocido";             
+           }else
+           {//si se realiza la insercion en la bd
+               $form_nuevo_proyecto['ctl']="Detalles";
+               $form_nuevo_proyecto['id_proyecto']=$resultado;             
+           }
+            
+        }else
+        {//si el formulario tiene campos invalidos
+            $form_nuevo_proyecto['ctl']="Nuevo_proyecto";
+        }
+        return $form_nuevo_proyecto;
+    }//fin form_nuevo_proyecto
+    
+    public static function form_descripcion($clave)
+    {
+        //aqui estan todas las descripciones del proyecto
+        $form_descripcion=[];
+        $form_descripcion['valido'] =FALSE;
+        $form_descripcion['clave']=$clave;
+        $form_descripcion['valor']= htmlentities(addslashes($_POST['txtDescripcion']));
+
+        //la validacion para despues 
+        // $formulario_valido= Validar::form_nuevo_proyecto($form_nuevo_proyecto);
+        $formulario_valido['valido']= TRUE;
+
+        if($formulario_valido['valido'])
+        {
+            if($clave=="obj_general")
+            {
+                $resultado= Modelo::insertar_descripcion($clave, $form_descripcion['valor'], $_SESSION['id_proyecto']);
+            }else
+            {
+                $resultado= Modelo:: actualizar_descripcion($clave, $form_descripcion['valor'], $_SESSION['id_proyecto']);
+            }
+          if($resultado==FALSE)
+           {//si no se inserto nada en la bd
+               $form_descripcion['error']="desconocido";             
+           }else
+           {//si se realiza la insercion en la bd
+               $form_descripcion['ctl']="Detalles";
+               $form_descripcion['cat']="descripciones";             
+           }
+            
+        }else
+        {//si el formulario tiene campos invalidos
+            $form_descripcion['ctl']="Nuevo";
+        }
+        return $form_descripcion;
+        
+    }
 }
 
 

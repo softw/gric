@@ -4,20 +4,34 @@
     //cat= si es update, insert o select
     //definir el tipo de formulario para llamar al metodo correspondiente
     $formulario= htmlentities(addslashes($_GET['form']));
-    $categoria= htmlentities(addslashes($_GET['cat']));
+    
 
     switch ($formulario)
     {
         case "nuevo_proyecto":
-            $metodo= procesar_form_nuevo_proyecto($categoria);
+            $metodo= procesar_form_nuevo_proyecto();
             break;
         case "nuevo_usuario":
-            $metodo= procesar_form_nuevo_usuario($categoria);
+            $metodo= procesar_form_nuevo_usuario();
             break;
         case "login":
             $metodo= procesar_form_login();
             break;
+        case "descripciones":
+            $clave=  htmlentities(addslashes($_GET['id']));
+            $metodo=procesar_form_descripciones($clave);
+            break;
     }
+    
+function procesar_form_descripciones($clave)
+{
+    $form_descripcion= Procesar:: form_descripcion($clave);
+    if($form_descripcion['ctl']=="Detalles")
+    {
+        $id_proyecto=$_SESSION['id_proyecto'];
+        header("location:index.php?ctl=Detalles&cat=descripciones&id=$id_proyecto");
+    }
+}
 
 function procesar_form_login()
 {
@@ -60,47 +74,22 @@ function procesar_form_nuevo_usuario()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function procesar_form_nuevo_proyecto()//metodo para insertar un proyecto nuevo en la bd primero se valida
+function procesar_form_nuevo_proyecto()
 {
-    $form_nuevo_proyecto=[];
-    $form_nuevo_proyecto['valido'] =FALSE;
-    $form_nuevo_proyecto['titulo']=       htmlentities(addslashes($_POST['txtTitulo']));
-    $form_nuevo_proyecto['convocatoria']= htmlentities(addslashes($_POST['txtConvocatoria']));
-    $form_nuevo_proyecto['programa']=     htmlentities(addslashes($_POST['txtPrograma']));
-    $form_nuevo_proyecto['tipo_f']=         htmlentities(addslashes($_POST['txtTipo']));
-    $form_nuevo_proyecto['duracion']=     htmlentities(addslashes($_POST['txtDuracion']));
-    $form_nuevo_proyecto['lugar']=        htmlentities(addslashes($_POST['txtLugar']));
-    $form_nuevo_proyecto['ben_camp']=    htmlentities(addslashes($_POST['beneficia']));
-    $form_nuevo_proyecto['descripcion']=       htmlentities(addslashes($_POST['txaDescripcion']));
-    $form_nuevo_proyecto['id_usuario']= $_SESSION['id_usuario'];
-    
-   //la validacion para despues 
-   // $formulario_valido= Validar::form_nuevo_proyecto($form_nuevo_proyecto);
-    $formulario_valido['valido']= TRUE;
-    
-    if($formulario_valido['valido'])
+    $form_nuevo_proyecto= Procesar::form_nuevo_proyecto();
+    if($form_nuevo_proyecto['ctl']=="Detalles")
     {
-        Modelo::insertar_generalidades($form_nuevo_proyecto['id_usuario'],$form_nuevo_proyecto['titulo'], $form_nuevo_proyecto['convocatoria'], $form_nuevo_proyecto['programa'], $form_nuevo_proyecto['tipo_f'], $form_nuevo_proyecto['duracion'], $form_nuevo_proyecto['lugar'], $form_nuevo_proyecto['ben_camp'], $form_nuevo_proyecto['descripcion']);
-        header('location: index.php?ctl=Listado&buscar=m');
-    }else
+        $id_proyecto= $form_nuevo_proyecto['id_proyecto'];
+        header("location:index.php?ctl=Detalles&cat=generalidades&id=15");
+        die();
+    }
+    if($form_nuevo_proyecto['ctl']=="Nuevo_proyecto")
     {
-        header('location:index.php?ctl=Nuevo_proyecto');
+        //los errores vienen en el array $form_nuevo_proyecto
+        $GLOBALS['ruta']="Error en el formulario";
+        $GLOBALS['titulo']="Error";
+        require ("/../vistas/formularios/crear_proyecto.php");
+        die();
     }
        
 }//fin metodo para insertar nuevo proyecto
