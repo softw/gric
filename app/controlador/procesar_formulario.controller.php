@@ -21,7 +21,22 @@
             $clave=  htmlentities(addslashes($_GET['id']));
             $metodo=procesar_form_descripciones($clave);
             break;
+        case "personas":
+            $metodo=procesar_form_personas();
     }
+    
+function procesar_form_personas()
+{
+    $form_persona= Procesar::form_persona();
+    if($form_persona['ok'])
+    {
+        $id_proyecto = $_SESSION['id_proyecto'];
+        header("location:index.php?ctl=Detalles&cat=personas&id=$id_proyecto");
+    }else
+    {
+        header("location:index.php?ctl=Nuevo&form=personas");
+    }
+}
     
 function procesar_form_descripciones($clave)
 {

@@ -226,12 +226,12 @@ class Modelo
         
     }//fin listar_descripciones()
     
-    public function listarPersonas($id_proyecto)
+    public static function listar_personas($id_proyecto)
     {
          try
         {
             $dbh = Conexion::singleton_conexion();
-            $sql = "SELECT * FROM personas/proyecto WHERE id_proyecto=$id_proyecto";
+            $sql = "SELECT * FROM personas WHERE id_proyecto=$id_proyecto";
             $query=$dbh->prepare($sql);
             $query->execute();
             $dbh=null;
@@ -239,9 +239,13 @@ class Modelo
             {
                 while($reg =$query->fetch())
                 {
-                    $this->personas[]=$reg;
+                    $personas[]=$reg;
                 }
-                return $this->personas;
+                return $personas;
+            }
+            else 
+            {
+                return FALSE; 
             }
         } 
         catch (Exception $e)
@@ -437,4 +441,24 @@ class Modelo
         } 
     }
     
+    public static function insertar_persona($id_proyecto,$direccion,$ciudad,$telefono,$cargo,$dependencia,$entidad,$rol,$dedicacion,$pApellido,$sApellido,$nombres,$sexo,$fechaNa,$paisNa,$tipoId,$numeroId,$email,$respon,$titulos,$expEmpresarial,$expDocente,$resumen,$referencias)
+    {
+         try{
+            
+            $conexion = Conexion::singleton_conexion();
+            $sql="INSERT INTO personas(id_proyecto,rol_proyecto,entidad,nombres,primer_apellido,segundo_apellido,genero,fecha_nacimiento,pais,email,tipo_identificacion,numero_identificacion,responsabilidades,dedicacion_horas,titulos_certificaciones,experiencia_empresarial,experiencia_docente,resumen_hoja_vida,referencias,direccion_oficina,telefono,cargo,dependencia,ciudad_labora)";           
+            $sql.="VALUES ($id_proyecto,$rol,$entidad,$nombres,$pApellido,$sApellido,$sexo,$fechaNa,$paisNa,$email,$tipoId,$numeroId,$respon,$dedicacion,$titulos,$expEmpresarial,$expDocente,$resumen,$referencias,$direccion,$telefono,$cargo,$dependencia,$ciudad)";
+            $query =$conexion->prepare($sql);
+            $filasafectadas=$query->execute();
+            $conexion= null;
+            if($filasafectadas > 0): return true;           
+                else: return false;           
+            endif;
+        } 
+        catch (Exception $ex) 
+        {
+            print "Error!: " . $ex->getMessage();
+        } 
+        
+    }    
 }

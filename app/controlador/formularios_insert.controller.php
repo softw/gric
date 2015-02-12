@@ -15,12 +15,12 @@ switch ($formulario)
         $GLOBALS['titulo']="Agregar $id";
         require("/../vistas/formularios/crearDescripcion.php");
         break;
-    case "persona":
+    case "personas":
                 
-        $GLOBALS['ruta']="Proyecto/detalles/Agregar objetivo general";
-        $GLOBALS['titulo']="Agregar objetivo general";
-       
-        
+        $GLOBALS['ruta']="Proyecto/detalles/Agregar persona";
+        $GLOBALS['titulo']="Nueva Persona";
+        $uri=  htmlentities(addslashes($_GET['token']));
+        require("/../vistas/formularios/crearPersona.form.php");
         break;
     
     case "necesidad":

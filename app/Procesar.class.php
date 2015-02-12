@@ -156,6 +156,63 @@ class Procesar
         return $form_descripcion;
         
     }
+    
+    public static function form_persona()
+    {
+        $form_persona=[];
+        $form_persona['valido'] =FALSE;
+        $form_persona['direccion']=  htmlentities(addslashes($_POST['txtDireccion']));
+        $form_persona['ciudad']=     htmlentities(addslashes($_POST['txtCiudad']));
+        $form_persona['telefono']=   htmlentities(addslashes($_POST['txtTelefono']));
+        $form_persona['cargo']=      htmlentities(addslashes($_POST['txtCargo']));
+        $form_persona['dependencia']=htmlentities(addslashes($_POST['txtDependencia']));       
+        $form_persona['entidad']=    htmlentities(addslashes($_POST['txtEntidad']));
+        
+        $form_persona['rol']=        htmlentities(addslashes($_POST['txtRol']));
+        $form_persona['dedicacion']= htmlentities(addslashes($_POST['txtDedicacion']));
+        
+        $form_persona['pApellido']=  htmlentities(addslashes($_POST['txtPrimer']));
+        $form_persona['sApellido']=     htmlentities(addslashes($_POST['txtSegundo']));
+        $form_persona['nombres']=   htmlentities(addslashes($_POST['txtNombres']));
+        $form_persona['sexo']=      htmlentities(addslashes($_POST['sexo']));
+        $form_persona['fechaNa']=htmlentities(addslashes($_POST['dtFecha'])); 
+        $form_persona['paisNa']=    htmlentities(addslashes($_POST['txtPais']));
+        $form_persona['tipoId']=        htmlentities(addslashes($_POST['tipoId']));
+        $form_persona['numeroId']= htmlentities(addslashes($_POST['txtNumero']));
+        $form_persona['email']=   htmlentities(addslashes($_POST['email']));
+        $form_persona['titulos']=htmlentities(addslashes($_POST['txaTitulos'])); 
+         
+        $form_persona['respon']=      htmlentities(addslashes($_POST['txaResponsabilidades']));      
+        $form_persona['expEmpresarial']=    htmlentities(addslashes($_POST['txaExpEmpresarial']));
+        $form_persona['expDocente']=        htmlentities(addslashes($_POST['txaExpDocente']));
+        $form_persona['resumen']= htmlentities(addslashes($_POST['txaResumen']));
+        $form_persona['referencias']= htmlentities(addslashes($_POST['txaReferencias']));
+        
+       
+
+        //la validacion para despues 
+        // $formulario_valido= Validar::form_persona($form_persona);
+        $formulario_valido['valido']= TRUE;
+
+        if($formulario_valido['valido'])
+        {
+           $resultado=Modelo::insertar_persona($_SESSION['id_proyecto'], $form_persona['direccion'], $form_persona['ciudad'], $form_persona['telefono'], $form_persona['cargo'], $form_persona['dependencia'], $form_persona['entidad'], $form_persona['rol'], $form_persona['dedicacion'], $form_persona['pApellido'], $form_persona['sApellido'], $form_persona['nombres'], $form_persona['sexo'], $form_persona['fechaNa'], $form_persona['paisNa'], $form_persona['tipoId'], $form_persona['numeroId'], $form_persona['email'], $form_persona['respon'], $form_persona['titulos'], $form_persona['expEmpresarial'], $form_persona['expDocente'], $form_persona['resumen'], $form_persona['referencias']);
+          if($resultado==FALSE)
+           {//si no se inserto nada en la bd
+               $form_persona['ok']=FALSE;             
+           }else
+           {//si se realiza la insercion en la bd
+               $form_persona['ok']=TRUE;
+               $form_persona['id_proyecto']=$resultado;             
+           }
+            
+        }else
+        {//si el formulario tiene campos invalidos
+            $form_persona['ok']=FALSE;
+        }
+        return $form_persona;
+        
+    }
 }
 
 

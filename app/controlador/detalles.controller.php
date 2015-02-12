@@ -35,8 +35,10 @@
             break;
         
         case "personas":
+            $params = ['personas' => Modelo::listar_personas($id_proyecto)];
             $GLOBALS['ruta']=$_SESSION['titulo_proyecto']."/personas";
             $GLOBALS['titulo']="Personas";
+            $uri=$_SERVER['REQUEST_URI'];
             require ('/../vistas/contenido/DetPersonas.php');
             break;
         
