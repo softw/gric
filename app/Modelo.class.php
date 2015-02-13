@@ -255,7 +255,33 @@ class Modelo
         
     }//FIN LISTAR PERSONAS
     
-    
+    public static function listar_actividades($id_proyecto)
+    {
+        try
+        {
+            $dbh = Conexion::singleton_conexion();
+            $sql = "SELECT * FROM actividades WHERE id_proyecto=$id_proyecto";
+            $query=$dbh->prepare($sql);
+            $query->execute();
+            $dbh=null;
+            if($query->rowCount()>0)
+            {
+                while($reg =$query->fetch())
+                {
+                    $actividades[]=$reg;
+                }
+                return $actividades;
+            }else
+            {
+                return FALSE;
+            }
+        } 
+        catch (Exception $e)
+        {
+            print "ERROR!: ".$e->getMessage();
+        } 
+        
+    }
     
     
      public function getBeneficiarios($id_proyecto)
@@ -447,7 +473,7 @@ class Modelo
             
             $conexion = Conexion::singleton_conexion();
             $sql="INSERT INTO personas(id_proyecto,rol_proyecto,entidad,nombres,primer_apellido,segundo_apellido,genero,fecha_nacimiento,pais,email,tipo_identificacion,numero_identificacion,responsabilidades,dedicacion_horas,titulos_certificaciones,experiencia_empresarial,experiencia_docente,resumen_hoja_vida,referencias,direccion_oficina,telefono,cargo,dependencia,ciudad_labora)";           
-            $sql.="VALUES ($id_proyecto,$rol,$entidad,$nombres,$pApellido,$sApellido,$sexo,$fechaNa,$paisNa,$email,$tipoId,$numeroId,$respon,$dedicacion,$titulos,$expEmpresarial,$expDocente,$resumen,$referencias,$direccion,$telefono,$cargo,$dependencia,$ciudad)";
+            $sql.="VALUES ($id_proyecto,'$rol','$entidad','$nombres','$pApellido','$sApellido','$sexo',$fechaNa,'$paisNa','$email','$tipoId',$numeroId,'$respon',$dedicacion,$titulos,$expEmpresarial,$expDocente,$resumen,$referencias,$direccion,$telefono,$cargo,$dependencia,$ciudad)";
             $query =$conexion->prepare($sql);
             $filasafectadas=$query->execute();
             $conexion= null;
@@ -460,5 +486,60 @@ class Modelo
             print "Error!: " . $ex->getMessage();
         } 
         
-    }    
+    }   
+    
+    public static function insertar_persona_basico($id_proyecto,$rol,$entidad,$nombres,$pApellido,$sApellido,$sexo,$fechaNa,$paisNa,$email,$tipoId,$numeroId,$respon,$dedicacion)/*14 items*/
+    {
+          try{
+            
+            $conexion = Conexion::singleton_conexion();
+            
+          //INSERT INTO `personas`(`id`, `id_proyecto`, `rol_proyecto`, `entidad`, `nombres`, `primer_apellido`, `segundo_apellido`, `genero`, `fecha_nacimiento`, `pais`, `email`, `tipo_identificacion`, `numero_identificacion`, `responsabilidades`, `dedicacion_horas`, `titulos_certificaciones`, `experiencia_empresarial`, `experiencia_docente`, `resumen_hoja_vida`, `referencias`, `direccion_oficina`, `telefono`, `cargo`, `dependencia`, `ciudad_labora`)
+           //       VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8],[value-9],[value-10],[value-11],[value-12],[value-13],[value-14],[value-15],[value-16],[value-17],[value-18],[value-19],[value-20],[value-21],[value-22],[value-23],[value-24],[value-25])
+            
+            $sql="INSERT INTO personas(id,id_proyecto,rol_proyecto,entidad,nombres,primer_apellido,segundo_apellido,genero,fecha_nacimiento,pais,email,tipo_identificacion,numero_identificacion,responsabilidades,dedicacion_horas)";           
+            $sql.="VALUES (NULL,$id_proyecto,'$rol','$entidad','$nombres','$pApellido','$sApellido','$sexo',$fechaNa,'$paisNa','$email','$tipoId',$numeroId,'$respon',$dedicacion)";
+            $query =$conexion->prepare($sql);
+            $filasafectadas=$query->execute();
+            $conexion= null;
+            if($filasafectadas > 0): return true;           
+                else: return false;           
+            endif;
+        } 
+        catch (Exception $ex) 
+        {
+            print "Error!: " . $ex->getMessage();
+        } 
+    }
+    
+    public static function insertar_persona_entidad()
+    {
+        
+    }
+    
+    public static function insertar_persona_profesional()
+    {
+        
+    }
+    
+    public static function insertar_actividad($id_proyecto,$numero,$actividad,$fecha_inicio,$fecha_final,$duracion)
+    {
+        try{
+            
+            $conexion = Conexion::singleton_conexion();
+            $sql="INSERT INTO actividades (id,id_proyecto,numero,actividad,fecha_inicio,fecha_final,duracion) ";
+            $sql.= "VALUES (NULL,$id_proyecto,'$numero','$actividad',$fecha_inicio,$fecha_final,$duracion)";           
+            $query =$conexion->prepare($sql);
+            $filasafectadas=$query->execute();
+            $conexion= null;
+            if($filasafectadas > 0): return true;           
+                else: return false;           
+            endif;
+        } 
+        catch (Exception $ex) 
+        {
+            print "Error!: " . $ex->getMessage();
+        } 
+        
+    }
 }

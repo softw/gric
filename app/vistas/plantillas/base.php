@@ -11,15 +11,16 @@
 </head>
 
 <body>               
-        <?php if(isset($_SESSION['usuario'])): ?>
-	<nav>
-            <div class="opcionesUsuario">
-		<p><?php echo $_SESSION['usuario'] ?><a href="index.php?ctl=Inicio&salir=true">Cerrar sesión</a></p>		
-            </div>	
-	</nav>
-        <?php endif ?>
+        
     
 	<header>
+            <?php if(isset($_SESSION['usuario'])): ?>
+            <nav>
+                <div class="opcionesUsuario">
+                    <p><?php echo $_SESSION['usuario'] ?><a href="index.php?ctl=Inicio&salir=true">Cerrar sesión</a></p>		
+                </div>	
+            </nav>
+            <?php endif ?>
             <div class="imgHeader">
                     <img id="headerlogosena" src="imagenes/headerlogosena.png" alt="logo del sena" />
             </div>

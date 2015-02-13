@@ -2,8 +2,8 @@
 
 <div class="contenedorCentral">
     <article>
-        
-        <form action="index.php?ctl=Procesar&form=personas&cat=i" method="POST" >
+       <?php if($clave==0): /*datos de la oficina */?>
+        <form action="index.php?ctl=Procesar&form=personas&cat=i&clave=0" method="POST" >
             <fieldset>
                 <legend> Datos de la oficina o lugar de trabajo</legend>
                  <div class="form-group">
@@ -33,27 +33,23 @@
                     </div>
                 </div>
                 
-            </fieldset>
-            <fieldset>
-                <legend>Datos personales</legend>
-
-               <div class="form-group">
-                    <label for="entidad">Entidad</label>
-                    <input  class="input" type="text" name="txtEntidad" id="entidad" maxlength="150" required>
-               </div>
-
                 <div class="form-group">
-                   <div class="form-group-medio">
-                        <label for="rol">Rol en el proyecto</label>
-                        <input  class="input" type="text" name="txtRol" id="rol" required>
+                    <div class="form-group-medio">
+                        <input class="btn" type="submit" value="Enviar"> 
                     </div>
                     <div class="form-group-medio">
-                        <label for="dedicacion">Dedicación en horas semanales</label>
-                        <input  class="input" type="text" name="txtDedicacion" id="dedicacion" required>
+                        <a  class="btn" href="<?php echo $_SERVER['HTTP_REFERER']?>">Cancelar</a>
                     </div>  
                 </div>
-
-                 <div class="form-group">
+            </fieldset>
+        </form>
+        
+        <?php elseif($clave==1):/*Datos Basicos*/ ?>
+        <form action="index.php?ctl=Procesar&form=personas&cat=i&clave=1" method="POST" >
+            <fieldset>
+                <legend>Datos básicos</legend>
+ 
+                <div class="form-group">
                     <div class="form-group-medio">
                         <label for="primer">Primer Apellido</label>
                         <input   class="input" type="text" name="txtPrimer" id="primer" required>
@@ -78,9 +74,9 @@
                     </div>
                 </div>
 
-                 <div class="form-group">
+                <div class="form-group">
                     <div class="form-group-medio">
-                        <label for="fecha">Fecha nacimiento</label>
+                        <label for="fecha">Fecha de nacimiento</label>
                         <input class="input" type="date" name="dtFecha" id="fecha" required>
                     </div>
                     <div class="form-group-medio">
@@ -89,7 +85,7 @@
                     </div>
                 </div>
 
-                 <div class="form-group">
+                <div class="form-group">
                     <div class="form-group-medio">
                         <label for="tipoId">Tipo de identificación</label>
                         <select name="tipoId" id="tipoId">
@@ -109,12 +105,42 @@
                     <label for="email">Correo Eléctronico</label>
                     <input class="input" type="email" name="email" id="email" >
                 </div>
+                
+                 <div class="form-group">
+                    <label for="entidad">Entidad</label>
+                    <input  class="input" type="text" name="txtEntidad" id="entidad" maxlength="150" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="rol">Rol en el proyecto</label>
+                    <input  class="input" type="text" name="txtRol" id="rol" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dedicacion">Dedicación en horas semanales</label>
+                    <input  class="input" type="text" name="txtDedicacion" id="dedicacion" required>
+                </div>  
 
                 <div class="form-group">
                     <label for="responsabilidades">Responsabilidades en el proyecto</label>
                     <textarea  cols="90" rows="5" name="txaResponsabilidades" id="responsabilidades" ></textarea>
-                </div>
+                </div>  
                 
+                <div class="form-group">
+                    <div class="form-group-medio">
+                        <input class="btn" type="submit" value="Enviar"> 
+                    </div>
+                    <div class="form-group-medio">
+                        <a  class="btn" href="<?php echo $_SERVER['HTTP_REFERER']?>">Cancelar</a>
+                    </div>  
+                </div>
+            </fieldset  >
+        </form>
+        
+        <?php elseif($clave==2):/*Datos profesionales*/?>
+        <form action="index.php?ctl=Procesar&form=personas&cat=i&clave=2" method="POST" >
+            <fieldset>
+                <legend>Datos profesionales</legend>     
                  <div class="form-group">
                     <label for="titulos">Titulos y certificaciones</label>
                     <textarea  cols="90" rows="5" name="txaTitulos" id="titulos" ></textarea>
@@ -145,13 +171,14 @@
                         <input class="btn" type="submit" value="Enviar"> 
                     </div>
                     <div class="form-group-medio">
-                        <a  class="btn" href="<?php echo $uri ?>">Cancelar</a//pendiente por definir
+                        <a  class="btn" href="<?php echo $_SERVER['HTTP_REFERER']?>">Cancelar</a>
                     </div>  
                 </div>
             </fieldset>
             
         </form>
-                </article><!--editargeneralidades-->
+        <?php endif; ?>
+    </article><!--editargeneralidades-->
 </div>
  <?php $contenido= ob_get_clean();
 include'/../plantillas/base.php';

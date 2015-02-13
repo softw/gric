@@ -9,32 +9,62 @@
     switch ($formulario)
     {
         case "nuevo_proyecto":
-            $metodo= procesar_form_nuevo_proyecto();
+            $ejecutar= procesar_form_nuevo_proyecto();
             break;
         case "nuevo_usuario":
-            $metodo= procesar_form_nuevo_usuario();
+            $ejecutar= procesar_form_nuevo_usuario();
             break;
         case "login":
-            $metodo= procesar_form_login();
+            $ejecutar= procesar_form_login();
             break;
         case "descripciones":
             $clave=  htmlentities(addslashes($_GET['id']));
-            $metodo=procesar_form_descripciones($clave);
+            $ejecutar=procesar_form_descripciones($clave);
             break;
         case "personas":
-            $metodo=procesar_form_personas();
+            $clave=  htmlentities(addslashes($_GET['clave']));
+            $ejecutar=procesar_form_personas($clave);
+            break;
+        case "actividad":
+            $ejecutar = procesar_form_actividad();
+            break;
     }
     
-function procesar_form_personas()
+function procesar_form_actividad()
 {
-    $form_persona= Procesar::form_persona();
+    $form_actividad= Procesar:: form_actividad();
+    if($form_actividad['ok'])
+    {
+        $id_proyecto = $_SESSION['id_proyecto'];
+        header("location:index.php?ctl=Detalles&cat=cronograma&id=$id_proyecto");
+    }else
+    {
+        header("location:index.php?ctl=Nuevo&form=actividad");
+    }
+}
+    
+function procesar_form_personas($clave)
+{
+    switch ($clave)
+    {
+        case "0":
+            $form_persona= Procesar::form_persona_entidad();
+            break;
+        case "1":
+            $form_persona = Procesar::form_persona_basico();
+            break;
+        case "2":
+            $form_persona = Procesar:: form_persona_profesional();
+            break;
+    }
+    
     if($form_persona['ok'])
     {
         $id_proyecto = $_SESSION['id_proyecto'];
         header("location:index.php?ctl=Detalles&cat=personas&id=$id_proyecto");
     }else
     {
-        header("location:index.php?ctl=Nuevo&form=personas");
+        header("location:index.php?ctl=Nuevo&form=personas&clave=$clave");
     }
 }
     

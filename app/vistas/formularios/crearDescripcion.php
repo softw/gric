@@ -72,6 +72,7 @@
                 <input type="hidden" name="id" value="<?php echo $id ?>">
                 <input type="hidden" name="new_proyect_descripciones">
                 <input class="btn" type="submit" value="Enviar"> 
+                <a href="<?php echo $_SERVER['HTTP_REFERE']?>">Cancelar</a>
 
             </div>
         </form>

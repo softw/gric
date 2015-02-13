@@ -16,14 +16,16 @@ switch ($formulario)
         require("/../vistas/formularios/crearDescripcion.php");
         break;
     case "personas":
-                
+        $clave=  htmlentities(addslashes($_GET['clave']));//determina el tipo de dato a ingresar     
         $GLOBALS['ruta']="Proyecto/detalles/Agregar persona";
         $GLOBALS['titulo']="Nueva Persona";
-        $uri=  htmlentities(addslashes($_GET['token']));
         require("/../vistas/formularios/crearPersona.form.php");
         break;
     
-    case "necesidad":
+    case "actividad":
+        $GLOBALS['ruta']="proyecto/detalles/Agregar Actividad";
+        $GLOBALS['titulo']="Agregar Actividad";
+        require("/../vistas/formularios/crearActividad.php");
         break;
 }
 
