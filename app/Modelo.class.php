@@ -3,21 +3,14 @@
 /* 
  *ALL RIGHTS RESERVED
  */
+/*indice
+ * 
+ */
 
 class Modelo
-{
-    
-    private $tproyectos=array();
-    private $mproyectos=array();
-    private $generalidades=array();
-    private $beneficiarios=array();
-
-    /*#########################################
-     * consultas en la base de datos  
-     ########################################*/
-    
+{  
     /*####################
-   * SELECT
+   * validaciones
    */
     
     public static function es_admin($id_proyecto, $id_usuario)
@@ -111,258 +104,11 @@ class Modelo
             print "Error!: " . $e->getMessage();  
         }   
         
-    }//FIN VALIDARpassword()
-    
- 
-   
-    
-     public function listarTProyectos()
-    {
-        try
-        {   
-            $dbh = Conexion::singleton_conexion();
-            $sql = "SELECT id,id_usuario,titulo,descripcion,fecha_publicacion FROM proyecto_generalidades ORDER BY fecha_publicacion DESC";
-            $query=$dbh->prepare($sql);
-            
-           // $query=$this->conexion->prepare($sql);
-            $query->execute();
-            $dbh=null;
-            if($query->rowCount()>0)
-            {
-                while($reg = $query->fetch())
-                {
-                    $this->tproyectos[]=$reg;
-                }
-                return $this->tproyectos;
-            }
-            
-        } catch (Exception $e)
-            {
-                print "ERROR!: ".$e->getMessage();
-            }
-    }//fin listarTProyectos()
-    
-     public function listarMproyectos($id_usuario)
-    {
-        try
-        {
-            $dbh = Conexion::singleton_conexion();
-            $sql = "SELECT id,id_usuario,titulo,descripcion,fecha_publicacion FROM proyecto_generalidades WHERE id_usuario=$id_usuario ORDER BY fecha_publicacion DESC";
-            $query=$dbh->prepare($sql);
-           // $query->bindParam('id',$_SESSION['id_usuario']);
-            $query->execute();
-            $dbh=null;
-            
-            if($query->rowCount()>0)
-            {
-                while($reg =$query->fetch())
-                {
-                    $this->mproyectos[]=$reg;
-                }
-                return $this->mproyectos;
-            }
-            
-       } catch (Exception $e)
-            {
-                print "ERROR!: ".$e->getMessage();
-            }   
-    }//fin listarMproyectos()
-    
-    
-    
-    public static function listar_generalidades($id_proyecto)
-    {
-        try
-        {
-            $dbh = Conexion::singleton_conexion();
-            $sql = "SELECT * FROM proyecto_generalidades WHERE id= $id_proyecto ";
-            $query=$dbh->prepare($sql);
-            $query->execute();
-            $dbh=null;
-            if($query->rowCount()>0)
-            {
-                while($reg =$query->fetch())
-                {
-                    $generalidades[]=$reg;
-                }
-                return $generalidades;
-            }
-        } 
-        catch (Exception $e)
-        {
-                print "ERROR!: ".$e->getMessage();
-        }  
-       
-        
-    }//fin listarGeneralidades()
-    
-     public static function listar_descripciones($id_proyecto)
-    {
-        try
-        {
-            $dbh = Conexion::singleton_conexion();
-            $sql = "SELECT * FROM proyecto_descripciones WHERE id_proyecto=$id_proyecto";
-            $query=$dbh->prepare($sql);
-            $query->execute();
-            $dbh=null;
-            if($query->rowCount()>0)
-            {
-                while($reg =$query->fetch())
-                {
-                    $descripciones[]=$reg;
-                }
-                return $descripciones;
-            }
-            else{
-                return FALSE;
-            }
-           
-        } 
-        catch (Exception $e)
-        {
-                print "ERROR!: ".$e->getMessage();
-        }  
-       
-        
-    }//fin listar_descripciones()
-    
-    public static function listar_personas($id_proyecto)
-    {
-         try
-        {
-            $dbh = Conexion::singleton_conexion();
-            $sql = "SELECT * FROM personas WHERE id_proyecto=$id_proyecto";
-            $query=$dbh->prepare($sql);
-            $query->execute();
-            $dbh=null;
-            if($query->rowCount()>0)
-            {
-                while($reg =$query->fetch())
-                {
-                    $personas[]=$reg;
-                }
-                return $personas;
-            }
-            else 
-            {
-                return FALSE; 
-            }
-        } 
-        catch (Exception $e)
-        {
-                print "ERROR!: ".$e->getMessage();
-        }  
-        
-    }//FIN LISTAR PERSONAS
-    
-    public static function listar_actividades($id_proyecto)
-    {
-        try
-        {
-            $dbh = Conexion::singleton_conexion();
-            $sql = "SELECT * FROM actividades WHERE id_proyecto=$id_proyecto";
-            $query=$dbh->prepare($sql);
-            $query->execute();
-            $dbh=null;
-            if($query->rowCount()>0)
-            {
-                while($reg =$query->fetch())
-                {
-                    $actividades[]=$reg;
-                }
-                return $actividades;
-            }else
-            {
-                return FALSE;
-            }
-        } 
-        catch (Exception $e)
-        {
-            print "ERROR!: ".$e->getMessage();
-        } 
-        
     }
     
-    
-     public function getBeneficiarios($id_proyecto)
-    {
-        try
-        {
-            $dbh = Conexion::singleton_conexion();
-            $sql = "SELECT * FROM beneficiarios WHERE id_proyecto=$id_proyecto";
-            $query=$dbh->prepare($sql);
-            $query->execute();
-            $dbh=null;
-            if($query->rowCount()>0)
-            {
-                while($reg =$query->fetch())
-                {
-                    $this->beneficiarios[]=$reg;
-                }
-                return $this->beneficiarios;
-            }
-        } 
-        catch (Exception $e)
-        {
-                print "ERROR!: ".$e->getMessage();
-        }  
-        
-    }//fin getBeneficiarios
-    
-    /*#############################
-     * UPDATE
+    /*#########################################################
+     * Usuarios
      */
-    
-    public function update_generalidades($id_proyecto,$titulo,$convocatoria,$programa,$tipo_f,$duracion,$lugar,$ben_camp,$descripcion)
-    {
-         try
-        {
-            $conexion = Conexion::singleton_conexion();
-            $sql="UPDATE proyecto_generalidades SET titulo='$titulo',descripcion='$descripcion',convocatoria='$convocatoria',programa='$programa',tipo_f='$tipo_f',duracion='$duracion',lugar='$lugar',ben_camp='$ben_camp'";
-            $sql.= "WHERE id=$id_proyecto";            
-            $query =$conexion->prepare($sql);
-            $filasafectadas=$query->execute();
-            $conexion= null;
-            if($filasafectadas > 0):
-               return true;            
-            else : 
-                return false;
-            endif;    
-        } 
-        catch (Exception $e) 
-        {
-            print "Error!: " . $e->getMessage();
-        }
-        
-    }//fin metodo update_generalidades
-    
-  
-    
-     public static function actualizar_descripcion($clave,$valor,$id_proyecto)
-    {
-        try{
-            
-            $conexion = Conexion::singleton_conexion();
-            $sql="UPDATE proyecto_descripciones SET $clave = '$valor' WHERE id_proyecto = $id_proyecto";          
-            $query =$conexion->prepare($sql);
-            $filasafectadas=$query->execute();
-            $conexion= null;
-            if($filasafectadas > 0): return true;           
-                else: return false;           
-            endif;
-        } 
-        catch (Exception $ex) 
-        {
-            print "Error!: " . $ex->getMessage();
-        } 
-    }
-    
-    
-    
-    /*###########################
-    /INSERT
-    */
-    
     
     public static function insertar_usuario($email,$password)
     {
@@ -387,11 +133,72 @@ class Modelo
             print "Error!: " . $e->getMessage();
         }
   
-    }//FIN INSERTARUSUARIO()
+    }
     
     
+ 
+   
+    /*###########################################################
+     * listar proyectos
+     */
     
-    public static function insertar_generalidades($id_usuario,$titulo,$convocatoria,$programa,$tipo_f,$duracion,$lugar,$ben_camp,$descripcion)
+     public static function listar_t_proyectos()
+    {
+        try
+        {   
+            $dbh = Conexion::singleton_conexion();
+            $sql = "SELECT id,id_usuario,titulo,descripcion,fecha_publicacion FROM proyecto_generalidades ORDER BY fecha_publicacion DESC";
+            $query=$dbh->prepare($sql);
+            
+           // $query=$this->conexion->prepare($sql);
+            $query->execute();
+            $dbh=null;
+            if($query->rowCount()>0)
+            {
+                while($reg = $query->fetch())
+                {
+                    $tproyectos[]=$reg;
+                }
+                return $tproyectos;
+            }
+            
+        } catch (Exception $e)
+            {
+                print "ERROR!: ".$e->getMessage();
+            }
+    }
+    
+     public static function listar_m_proyectos($id_usuario)
+    {
+        try
+        {
+            $dbh = Conexion::singleton_conexion();
+            $sql = "SELECT id,id_usuario,titulo,descripcion,fecha_publicacion FROM proyecto_generalidades WHERE id_usuario=$id_usuario ORDER BY fecha_publicacion DESC";
+            $query=$dbh->prepare($sql);
+           // $query->bindParam('id',$_SESSION['id_usuario']);
+            $query->execute();
+            $dbh=null;
+            
+            if($query->rowCount()>0)
+            {
+                while($reg =$query->fetch())
+                {
+                    $mproyectos[]=$reg;
+                }
+                return $mproyectos;
+            }
+            
+       } catch (Exception $e)
+            {
+                print "ERROR!: ".$e->getMessage();
+            }   
+    }
+    
+    
+   /*##############################################################
+    * detalles generalidades
+    */ 
+       public static function insertar_generalidades($id_usuario,$titulo,$convocatoria,$programa,$tipo_f,$duracion,$lugar,$ben_camp,$descripcion)
     {
         try
         {
@@ -426,29 +233,90 @@ class Modelo
             print "Error!: " . $ex->getMessage();
         }
         
-    }//fin insertarProyectoGeneralidades()
+    }
     
-    public function agregarProyectoDescripciones($objGeneral,$id_proyecto)//$clave es el nombre del campo en la bd, valor es el nombre del input
+    public static function listar_generalidades($id_proyecto)
     {
-        try{
+        try
+        {
+            $dbh = Conexion::singleton_conexion();
+            $sql = "SELECT * FROM proyecto_generalidades WHERE id= $id_proyecto ";
+            $query=$dbh->prepare($sql);
+            $query->execute();
+            $dbh=null;
+            if($query->rowCount()>0)
+            {
+                while($reg =$query->fetch())
+                {
+                    $generalidades[]=$reg;
+                }
+                return $generalidades;
+            }
+        } 
+        catch (Exception $e)
+        {
+                print "ERROR!: ".$e->getMessage();
+        }  
             
+    }
+    
+     public function update_generalidades($id_proyecto,$titulo,$convocatoria,$programa,$tipo_f,$duracion,$lugar,$ben_camp,$descripcion)
+    {
+         try
+        {
             $conexion = Conexion::singleton_conexion();
-            $sql="INSERT INTO proyecto_descripciones(id_proyecto, obj_general) VALUES($id_proyecto,'$objGeneral')";           
+            $sql="UPDATE proyecto_generalidades SET titulo='$titulo',descripcion='$descripcion',convocatoria='$convocatoria',programa='$programa',tipo_f='$tipo_f',duracion='$duracion',lugar='$lugar',ben_camp='$ben_camp'";
+            $sql.= "WHERE id=$id_proyecto";            
             $query =$conexion->prepare($sql);
             $filasafectadas=$query->execute();
             $conexion= null;
-            if($filasafectadas > 0): return true;           
-                else: return false;           
-            endif;
+            if($filasafectadas > 0):
+               return true;            
+            else : 
+                return false;
+            endif;    
         } 
-        catch (Exception $ex) 
+        catch (Exception $e) 
         {
-            print "Error!: " . $ex->getMessage();
+            print "Error!: " . $e->getMessage();
         }
         
+    }//fin metodo update_generalidades
+    
+    
+    
+    
+    /*#####################################################
+     * detalles descripciones
+     */
+    
+    public static function listar_descripciones($id_proyecto)
+    {
+        try
+        {
+            $dbh = Conexion::singleton_conexion();
+            $sql = "SELECT * FROM proyecto_descripciones WHERE id_proyecto=$id_proyecto";
+            $query=$dbh->prepare($sql);
+            $query->execute();
+            $dbh=null;
+            if($query->rowCount()>0)
+            { while($reg =$query->fetch())
+                {
+                    $descripciones[]=$reg;
+                }
+                return $descripciones;
+            }
+            else{
+                return FALSE;
+            }         
+        } 
+        catch (Exception $e)
+        {
+                print "ERROR!: ".$e->getMessage();
+        }      
     }
     
-    public static function insertar_descripcion($clave,$valor,$id_proyecto)
+      public static function insertar_descripcion($clave,$valor,$id_proyecto)
     {
         try{
             
@@ -467,7 +335,31 @@ class Modelo
         } 
     }
     
-    public static function insertar_persona($id_proyecto,$direccion,$ciudad,$telefono,$cargo,$dependencia,$entidad,$rol,$dedicacion,$pApellido,$sApellido,$nombres,$sexo,$fechaNa,$paisNa,$tipoId,$numeroId,$email,$respon,$titulos,$expEmpresarial,$expDocente,$resumen,$referencias)
+    public static function actualizar_descripcion($clave,$valor,$id_proyecto)
+    {
+        try{
+            
+            $conexion = Conexion::singleton_conexion();
+            $sql="UPDATE proyecto_descripciones SET $clave = '$valor' WHERE id_proyecto = $id_proyecto";          
+            $query =$conexion->prepare($sql);
+            $filasafectadas=$query->execute();
+            $conexion= null;
+            if($filasafectadas > 0): return true;           
+                else: return false;           
+            endif;
+        } 
+        catch (Exception $ex) 
+        {
+            print "Error!: " . $ex->getMessage();
+        } 
+    }
+    
+    
+    /*##################################################
+     * detalles personas
+     */
+    
+     public static function insertar_persona($id_proyecto,$direccion,$ciudad,$telefono,$cargo,$dependencia,$entidad,$rol,$dedicacion,$pApellido,$sApellido,$nombres,$sexo,$fechaNa,$paisNa,$tipoId,$numeroId,$email,$respon,$titulos,$expEmpresarial,$expDocente,$resumen,$referencias)
     {
          try{
             
@@ -486,9 +378,9 @@ class Modelo
             print "Error!: " . $ex->getMessage();
         } 
         
-    }   
+    } 
     
-    public static function insertar_persona_basico($id_proyecto,$rol,$entidad,$nombres,$pApellido,$sApellido,$sexo,$fechaNa,$paisNa,$email,$tipoId,$numeroId,$respon,$dedicacion)/*14 items*/
+        public static function insertar_persona_basico($id_proyecto,$rol,$entidad,$nombres,$pApellido,$sApellido,$sexo,$fechaNa,$paisNa,$email,$tipoId,$numeroId,$respon,$dedicacion)/*14 items*/
     {
           try{
             
@@ -522,7 +414,69 @@ class Modelo
         
     }
     
-    public static function insertar_actividad($id_proyecto,$numero,$actividad,$fecha_inicio,$fecha_final,$duracion)
+    public static function listar_personas($id_proyecto)
+    {
+         try
+        {
+            $dbh = Conexion::singleton_conexion();
+            $sql = "SELECT * FROM personas WHERE id_proyecto=$id_proyecto";
+            $query=$dbh->prepare($sql);
+            $query->execute();
+            $dbh=null;
+            if($query->rowCount()>0)
+            {
+                while($reg =$query->fetch())
+                {
+                    $personas[]=$reg;
+                }
+                return $personas;
+            }
+            else 
+            {
+                return FALSE; 
+            }
+        } 
+        catch (Exception $e)
+        {
+                print "ERROR!: ".$e->getMessage();
+        }  
+        
+    }//FIN LISTAR PERSONAS
+    
+    
+    /*####################################################
+     * detalles actividades
+     */
+    
+    public static function listar_actividades($id_proyecto)
+    {
+        try
+        {
+            $dbh = Conexion::singleton_conexion();
+            $sql = "SELECT * FROM actividades WHERE id_proyecto=$id_proyecto";
+            $query=$dbh->prepare($sql);
+            $query->execute();
+            $dbh=null;
+            if($query->rowCount()>0)
+            {
+                while($reg =$query->fetch())
+                {
+                    $actividades[]=$reg;
+                }
+                return $actividades;
+            }else
+            {
+                return FALSE;
+            }
+        } 
+        catch (Exception $e)
+        {
+            print "ERROR!: ".$e->getMessage();
+        } 
+        
+    }
+    
+     public static function insertar_actividad($id_proyecto,$numero,$actividad,$fecha_inicio,$fecha_final,$duracion)
     {
         try{
             
@@ -532,8 +486,8 @@ class Modelo
             $query =$conexion->prepare($sql);
             $filasafectadas=$query->execute();
             $conexion= null;
-            if($filasafectadas > 0): return true;           
-                else: return false;           
+            if($filasafectadas > 0): return TRUE;           
+                else: return FALSE;           
             endif;
         } 
         catch (Exception $ex) 
@@ -542,4 +496,211 @@ class Modelo
         } 
         
     }
+    
+    
+    /*##################################################
+     * detalles resultados
+     */
+    
+    public static function listar_resultados($id_proyecto)
+    {
+        try
+        {
+            $dbh = Conexion::singleton_conexion();
+            $sql = "SELECT * FROM resultados WHERE id_proyecto=$id_proyecto";
+            $query=$dbh->prepare($sql);
+            $query->execute();
+            $dbh=null;
+            if($query->rowCount()>0)
+            {
+                while($reg =$query->fetch())
+                {
+                    $resultados[]=$reg;
+                }
+                return $resultados;
+            }else
+            {
+                return FALSE;
+            }
+        } 
+        catch (Exception $e)
+        {
+            print "ERROR!: ".$e->getMessage();
+        } 
+        
+    }
+    
+    public static function insertar_resultador($id_proyecto,$numero,$resultado,$indicador,$fuente,$meta)
+    {
+         try{
+            
+            $conexion = Conexion::singleton_conexion();
+            $sql="INSERT INTO resultados (id,id_proyecto,numero,resultado,indicador,fuente,meta) ";
+            $sql.= "VALUES (NULL,$id_proyecto,'$numero','$resultado','$indicador','$fuente','$meta')";           
+            $query =$conexion->prepare($sql);
+            $filasafectadas=$query->execute();
+            $conexion= null;
+            if($filasafectadas > 0): return TRUE;           
+                else: return FALSE;           
+            endif;
+        } 
+        catch (Exception $ex) 
+        {
+            print "Error!: " . $ex->getMessage();
+        } 
+        
+    }
+    
+    /*##############################################
+     * detalles resultados productos
+     */
+    public static function listar_productos($id_resultado)
+    {
+            try
+        {
+            $dbh = Conexion::singleton_conexion();
+            $sql = "SELECT * FROM productos WHERE id_resultado=$id_resultado";
+            $query=$dbh->prepare($sql);
+            $query->execute();
+            $dbh=null;
+            if($query->rowCount()>0)
+            {
+                while($reg =$query->fetch())
+                {
+                    $productos[]=$reg;
+                }
+                return $productos;
+            }else
+            {
+                return FALSE;
+            }
+        } 
+        catch (Exception $e)
+        {
+            print "ERROR!: ".$e->getMessage();
+        } 
+        
+    }
+    
+    public static function insertar_producto($id_resultado,$producto,$numero,$unidad,$duracion,$inicio,$final)
+    {
+         try{
+            
+            $conexion = Conexion::singleton_conexion();
+            $sql="INSERT INTO productos (id,id_resultado,producto,numero,unidad,duracion,inicio,final) ";
+            $sql.= "VALUES (NULL,$id_resultado,'$producto','$numero','$unidad','$duracion','$inicio','$final')";           
+            $query =$conexion->prepare($sql);
+            $filasafectadas=$query->execute();
+            $conexion= null;
+            if($filasafectadas > 0): return TRUE;           
+                else: return FALSE;           
+            endif;
+        } 
+        catch (Exception $ex) 
+        {
+            print "Error!: " . $ex->getMessage();
+        } 
+        
+    }
+
+
+    /*##############################################
+     * detalles beneficiarios
+     */
+     public function getBeneficiarios($id_proyecto)
+    {
+        try
+        {
+            $dbh = Conexion::singleton_conexion();
+            $sql = "SELECT * FROM beneficiarios WHERE id_proyecto=$id_proyecto";
+            $query=$dbh->prepare($sql);
+            $query->execute();
+            $dbh=null;
+            if($query->rowCount()>0)
+            {
+                while($reg =$query->fetch())
+                {
+                    $this->beneficiarios[]=$reg;
+                }
+                return $this->beneficiarios;
+            }
+        } 
+        catch (Exception $e)
+        {
+                print "ERROR!: ".$e->getMessage();
+        }  
+        
+    }//fin getBeneficiarios
+ 
+    
+   
+    
+    
+    
+     
+    
+
+    
+   
+    
+    
+    
+    //######################### 
+    // detalles impactos
+    
+    
+    public static function insertar_impacto($id_proyecto,$configuracion,$descripcion,$ano_base,$medicion_base,$ano_medicion,$impacto,$variacion,$descriptivo,$supuestos)
+    {
+        try{
+            
+            $conexion = Conexion::singleton_conexion();
+            $sql="INSERT INTO impactos (id_proyecto,configuracion,descripcion,ano_base,medicion_base,ano_medicion,impacto_esperado,variacion,descriptivo,supuestos) ";
+            $sql.= "VALUES ($id_proyecto,'$configuracion','$descripcion',$ano_base,$medicion_base,$ano_medicion,$impacto,'$variacion','$descriptivo','$supuestos')";           
+            $query =$conexion->prepare($sql);
+            $filasafectadas=$query->execute();
+            $conexion= null;
+            if($filasafectadas > 0): return TRUE;           
+                else: return FALSE;           
+            endif;
+        } 
+        catch (Exception $ex) 
+        {
+            print "Error!: " . $ex->getMessage();
+        } 
+        
+    }
+    
+     public static function listar_impactos($id_proyecto)
+    {
+        try
+        {
+            $dbh = Conexion::singleton_conexion();
+            $sql = "SELECT * FROM impactos WHERE id_proyecto=$id_proyecto";
+            $query=$dbh->prepare($sql);
+            $query->execute();
+            $dbh=null;
+            if($query->rowCount()>0)
+            {
+                while($reg =$query->fetch())
+                {
+                    $impactos[]=$reg;
+                }
+                return $impactos;
+            }else
+            {
+                return FALSE;
+            }
+        } 
+        catch (Exception $e)
+        {
+            print "ERROR!: ".$e->getMessage();
+        } 
+        
+    }
+    
+    public static function actualizar_impacto($id_proyecto,$id_impacto)
+    {
+        
+    }
+    
 }

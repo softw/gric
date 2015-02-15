@@ -1,9 +1,10 @@
 <?php
+//construye la pagina de detalles de un proyecto especifico
 
     //comprobar credenciales para ver la pagina
     if(!isset($_GET['id'])|| !isset($_SESSION['usuario']) || !isset($_GET['cat']))
     {
-        header('location:index.php?ctl=404');
+        header('location:index.php?ctl=Login');
     }
     
    $categoria=  htmlentities(addslashes($_GET['cat']));
@@ -62,12 +63,19 @@
             break;
         
         case "resultados":
+            $parametros = ['resultados' => Modelo::listar_resultados($_SESSION['id_proyecto'])];
+            foreach ($parametros['resultados'] as $resultado)
+            {
+                $productos=['productos'=> Modelo:: listar_productos($resultado['id'])];
+            }
+            
             $GLOBALS['ruta']=$_SESSION['titulo_proyecto']."/resultados";
             $GLOBALS['titulo']="Resultados";
             require ('/../vistas/contenido/DetResultados.php');
             break;
         
         case "impactos":
+            $parametros= [ 'impactos'=> Modelo::listar_impactos($_SESSION['id_proyecto'])];
             $GLOBALS['ruta']=$_SESSION['titulo_proyecto']."/impactos";
             $GLOBALS['titulo']="Impactos";
             require ('/../vistas/contenido/DetImpactos.php');

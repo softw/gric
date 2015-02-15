@@ -27,5 +27,23 @@ switch ($formulario)
         $GLOBALS['titulo']="Agregar Actividad";
         require("/../vistas/formularios/crearActividad.php");
         break;
+    case "resultado":
+        $clave = htmlentities(addslashes($_GET['clave']));
+        $GLOBALS['ruta']="Proyecto/detalles/Agregar Resultado";
+        $GLOBALS['titulo']="Agregar Resultado";
+        require ("/../vistas/formularios/nuevo_$clave.php");
+        break;
+    case "producto":
+        $id_resultado= htmlentities(addslashes($_GET['id_resultado']));
+        $GLOBALS['ruta']="Proyecto/detalles/Resultado $id_resultado/Agregar producto";
+        $GLOBALS['titulo']="Agregar Producto";
+        require ("/../vistas/formularios/nuevo_producto.php");
+        break;
+    case "impacto":
+        $GLOBALS['ruta']="proyecto/detalles/Agregar impacto";
+        $GLOBALS['titulo']="Agregar Impacto";
+        require("/../vistas/formularios/impacto.php");
+        break;
+    
 }
 

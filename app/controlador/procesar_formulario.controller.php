@@ -28,7 +28,59 @@
         case "actividad":
             $ejecutar = procesar_form_actividad();
             break;
+        case "resultado":
+            
+            $ejecutar = procesar_form_resultados();
+            break;
+        case "producto":
+            $id_resultado= htmlentities(addslashes($_GET['id_resultado']));
+            $ejecutar= procesar_form_producto($id_resultado);
+            break;
+        case "impacto":
+            $ejecutar = procesar_form_impacto();
+            break;
     }
+    
+function procesar_form_impacto()
+{
+    //HACE LA INSERCION PERO NO REDIRIGE?????
+    $form_impacto= Procesar:: form_impacto();
+    if($form_impacto['ok'])
+    {
+        $id_proyecto = $_SESSION['id_proyecto'];
+        header("location:index.php?ctl=Detalles&cat=impactos&id=$id_proyecto");
+    }else
+    {
+        header("location:index.php?ctl=Nuevo&form=impacto");
+    }
+}
+   
+function procesar_form_producto($id_resultado)
+{
+    $form_producto= Procesar::form_producto($id_resultado);
+    if($form_producto['ok'])
+    {
+        $id_proyecto = $_SESSION['id_proyecto'];
+        header("location:index.php?ctl=Detalles&cat=resultados&id=$id_proyecto");
+    }else
+    {
+        header("location:index.php?ctl=Nuevo&form=producto&id_resultado=$id_resultado");
+    }
+}
+function procesar_form_resultados($clave)
+{
+     $form_resultados = Procesar:: form_resultado_resultado();
+         
+    if($form_resultados['ok'])
+    {
+        $id_proyecto = $_SESSION['id_proyecto'];
+        header("location:index.php?ctl=Detalles&cat=resultados&id=$id_proyecto");
+    }else
+    {
+        header("location:index.php?ctl=Nuevo&form=resultados");
+    }
+        
+}
     
 function procesar_form_actividad()
 {

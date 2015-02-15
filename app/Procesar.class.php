@@ -244,6 +244,103 @@ class Procesar
            }
            return $form_actividad;
     }
+    
+    public static function form_resultado_resultado()
+    {
+        $form_resultador=[];
+        $form_resultador['valido']   =FALSE;
+        $form_resultador['numero']   =  htmlentities(addslashes($_POST['txtNumero']));
+        $form_resultador['resultado']=  htmlentities(addslashes($_POST['txaResultado']));
+        $form_resultador['indicador']=  htmlentities(addslashes($_POST['txaIndicador']));
+        $form_resultador['fuente']   =  htmlentities(addslashes($_POST['txaFuente']));
+        $form_resultador['meta']     =  htmlentities(addslashes($_POST['txaMeta']));
+        
+        //aqui va la validacion
+        $resultado= Modelo::insertar_resultador($_SESSION['id_proyecto'], $form_resultador['numero'], $form_resultador['resultado'], $form_resultador['indicador'], $form_resultador['fuente'], $form_resultador['meta']);
+        if($resultado)//si se realiza la insercion en la bd
+        {
+            $form_resultador['ok']=TRUE;             
+        }else//si no se inserto nada en la bd
+        {
+            $form_resultador['ok']=FALSE;             
+        }
+           return $form_resultador;
+        
+    }
+    
+    public static function form_producto($id_resultado)
+    {
+        $form_producto=[];
+        $form_producto['valido']   =FALSE;
+        $form_producto['numero']   =  htmlentities(addslashes($_POST['numero']));
+        $form_producto['producto']=  htmlentities(addslashes($_POST['txtProducto']));
+        $form_producto['duracion']=  htmlentities(addslashes($_POST['txtDuracion']));
+        $form_producto['unidad']   =  htmlentities(addslashes($_POST['unidad']));
+        $form_producto['inicio']=  htmlentities(addslashes($_POST['fecha_inicio']));
+        $form_producto['final']=  htmlentities(addslashes($_POST['fecha_final']));
+        
+        //aqui va la validacion
+        $resultado = Modelo:: insertar_producto($id_resultado,$form_producto['producto'], $form_producto['numero'], $form_producto['unidad'], $form_producto['duracion'], $form_producto['inicio'], $form_producto['final']);
+        if($resultado)//si se realiza la insercion en la bd
+        {
+            $form_producto['ok']=TRUE;             
+        }else//si no se inserto nada en la bd
+        {
+            $form_producto['ok']=FALSE;             
+        }
+           return $form_producto;
+        
+    }
+    
+    public static function form_resultado_rubro()
+    {
+        $form_resultador=[];
+        $form_resultador['valido']   =FALSE;
+        $form_resultador['numero']   =  htmlentities(addslashes($_POST['txtNumero']));
+        $form_resultador['resultado']=  htmlentities(addslashes($_POST['txaResultado']));
+        $form_resultador['indicador']=  htmlentities(addslashes($_POST['txaIndicador']));
+        $form_resultador['fuente']   =  htmlentities(addslashes($_POST['txaFuente']));
+        $form_resultador['meta']     =  htmlentities(addslashes($_POST['txaMeta']));
+        
+        //aqui va la validacion
+        $resultado= Modelo::insertar_resultador($_SESSION['id_proyecto'], $form_resultador['numero'], $form_resultador['resultado'], $form_resultador['indicador'], $form_resultador['fuente'], $form_resultador['meta']);
+        if($resultado)//si se realiza la insercion en la bd
+        {
+            $form_resultador['ok']=TRUE;             
+        }else//si no se inserto nada en la bd
+        {
+            $form_resultador['ok']=FALSE;             
+        }
+           return $form_resultador;
+        
+    }
+    
+    public static function form_impacto()
+    {
+        $form_impacto=[];
+        $form_impacto['valido']   =FALSE;
+        $form_impacto['configuracion']   =  htmlentities(addslashes($_POST['txtConfiguracion']));
+        $form_impacto['descripcion']=  htmlentities(addslashes($_POST['txaDescripcion']));
+        $form_impacto['ano_base']=  htmlentities(addslashes($_POST['txtAnoBase']));
+        $form_impacto['medicion_base']   =  htmlentities(addslashes($_POST['txtMedicion']));
+        $form_impacto['ano_medicion']     =  htmlentities(addslashes($_POST['txtAnoMedicion']));
+        $form_impacto['impacto_esperado']=  htmlentities(addslashes($_POST['txtImpacto']));
+        $form_impacto['variacion']=  htmlentities(addslashes($_POST['txtVariacion']));
+        $form_impacto['descriptivo']   =  htmlentities(addslashes($_POST['txaDescriptivo']));
+        $form_impacto['supuestos']     =  htmlentities(addslashes($_POST['txaSupuestos']));
+        
+        //aqui va la validacion
+        $resultado = Modelo::insertar_impacto($_SESSION['id_proyecto'], $form_impacto['configuracion'], $form_impacto['descripcion'], $form_impacto['ano_base'], $form_impacto['medicion_base'], $form_impacto['ano_medicion'], $form_impacto['impacto'], $form_impacto['variacion'], $form_impacto['descriptivo'], $form_impacto['supuestos']);
+        if($resultado)//si se realiza la insercion en la bd
+        {
+            $form_impacto['ok']=TRUE;             
+        }else//si no se inserto nada en la bd
+        {
+            $form_impacto['ok']=FALSE;             
+        }
+        return $form_impacto;
+        
+    }
 }
 
 
