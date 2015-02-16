@@ -22,6 +22,7 @@
             </nav>
             <?php endif ?>
             <div class="imgHeader">
+                
                     <img id="headerlogosena" src="imagenes/headerlogosena.png" alt="logo del sena" />
             </div>
 	</header>

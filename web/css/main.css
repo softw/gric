@@ -24,7 +24,7 @@ header{
 
 section
 {
-	min-height: 400px;
+	min-height: 550px;
         margin-bottom: 50px;
 
 }
@@ -38,6 +38,7 @@ footer
 {
 	background-color:rgb(225, 225, 225) ;
 	min-height: 50px;
+        
 }
 /*######################
 	selectores de id 
@@ -66,7 +67,7 @@ footer
 
 .menu a:hover
 {
-	background-color:rgba(168, 168, 168, 1);
+	background-color: rgba(117, 190, 236, 1);
 }
 #menuUsuario a
 {
@@ -115,7 +116,7 @@ footer
 
 .contenedorCentral
 {
-        background-color: #f8f8f8;
+        
         border-radius: 5px;
 	max-width: 960px;
 	min-height: 200px;
@@ -127,7 +128,7 @@ footer
 
 .contenedorSecu
 {
-    background-color: #f8f8f8;
+   
     border-radius: 5px;
     padding: 0px 50px 50px 50px;
     min-width: 758px;
@@ -170,11 +171,16 @@ footer
 
 /*    i         */
 
+
 .imgHeader
 {
-	margin: 0 auto;
-	max-width: 960px;
-	min-width: 500px;
+
+	width: 100%;
+}
+
+.imgHeader img
+{
+    width:100%;
 }
 .input
 {

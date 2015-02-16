@@ -180,14 +180,15 @@ class Procesar
 
         if($formulario_valido['valido'])
         {
-           $resultado=Modelo::insertar_persona_basico($_SESSION['id_proyecto'], $form_persona['entidad'], $form_persona['rol'], $form_persona['dedicacion'], 
-                   $form_persona['pApellido'], $form_persona['sApellido'], $form_persona['nombres'], $form_persona['sexo'], $form_persona['fechaNa'], 
-                   $form_persona['paisNa'], $form_persona['tipoId'], $form_persona['numeroId'], $form_persona['email'], $form_persona['respon']);
+           $resultado=Modelo::insertar_persona_basico($_SESSION['id_proyecto'], $form_persona['entidad'], $form_persona['rol'], $form_persona['dedicacion'],$form_persona['pApellido'], $form_persona['sApellido'], $form_persona['nombres'], $form_persona['sexo'], $form_persona['fechaNa'],$form_persona['paisNa'], $form_persona['tipoId'], $form_persona['numeroId'], $form_persona['email'], $form_persona['respon']);
+            
           if($resultado==FALSE)
            {//si no se inserto nada en la bd
-               $form_persona['ok']=FALSE;             
+              
+              $form_persona['ok']=FALSE;             
            }else
            {//si se realiza la insercion en la bd
+               
                $form_persona['ok']=TRUE;             
            }
             
