@@ -189,6 +189,19 @@ footer
     padding: 2px 0 2px 0;
     font: Verdana;
 }
+.input-micro
+{
+    width: 30px;
+}
+.input-md
+{
+    width: 70px;
+}
+
+.input-pk
+{
+    width:50px;
+}
 
 /*      L     */
 

@@ -32,6 +32,11 @@ class Controller
         require 'controlador/detalles.controller.php';
     }
     
+    public function crear_p_perfil()
+    {
+       require 'controlador/perfil.controller.php';
+    }
+    
     
     public function crear_p_nuevo_proyecto()
     {
