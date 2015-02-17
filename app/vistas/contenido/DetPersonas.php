@@ -10,23 +10,7 @@
 
                     <table id="table-personas" class="table table-bordered table-hover">
                         <caption>Datos Básicos</caption>
-                        <tr>
-                            <th width="200">Entidad</th>
-                            <td colspan="3">
-                                <?php if(!empty($persona['entidad'])):echo $persona['entidad'];endif; ?>         
-                            </td>
                        
-                        </tr>
-                        <tr>
-                            <th>Rol en el proyecto</th>
-                            <td>
-                                <?php if(!empty($persona['rol_proyecto'])): echo $persona['rol_proyecto']; endif; ?>
-                            </td>
-                            <th width="250">Dedicación horas semanales</th>
-                           <td>
-                               <?php if(!empty($persona['dedicacion_horas'])):echo $persona['dedicacion_horas'];endif;?>
-                           </td>
-                        </tr>
                         <tr>
                             <th>Primer apellido</th>
                             <td>
@@ -70,7 +54,7 @@
                         
                         <tr>
                            <th>Correo electrónico</th>
-                           <td>
+                           <td colspan="3">
                                <?php   if(!empty($persona['email'])):
                                         echo $persona['email'];
                                     endif;
@@ -93,11 +77,24 @@
                             ?>
                            </td>
                         </tr>
-                    </table>
-                    
-                    <table id="table-personas" class="table table-bordered table-hover">
-                        <caption>Datos profesionales</caption>   
+                         <tr>
+                            <th width="200">Entidad</th>
+                            <td colspan="3">
+                                <?php if(!empty($persona['entidad'])):echo $persona['entidad'];endif; ?>         
+                            </td>
+                       
+                        </tr>
                         <tr>
+                            <th>Rol en el proyecto</th>
+                            <td>
+                                <?php if(!empty($persona['rol_proyecto'])): echo $persona['rol_proyecto']; endif; ?>
+                            </td>
+                            <th width="250">Dedicación horas semanales</th>
+                           <td>
+                               <?php if(!empty($persona['dedicacion_horas'])):echo $persona['dedicacion_horas'];endif;?>
+                           </td>
+                        </tr>
+                         <tr>
                             <th colspan="4">Responsabilidades</th>                        
                         </tr>
                         <tr>
@@ -106,6 +103,11 @@
                                     endif; ?>
                            </td>
                         </tr>
+                    </table>
+                    
+                    <table id="table-personas" class="table table-bordered table-hover">
+                        <caption>Datos profesionales</caption>   
+                       
                         <tr>
                           
                         </tr>

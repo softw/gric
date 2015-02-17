@@ -64,10 +64,7 @@
         
         case "resultados":
             $parametros = ['resultados' => Modelo::listar_resultados($_SESSION['id_proyecto'])];
-            foreach ($parametros['resultados'] as $resultado)
-            {
-                $productos=['productos'=> Modelo:: listar_productos($resultado['id'])];
-            }
+           
             
             $GLOBALS['ruta']=$_SESSION['titulo_proyecto']."/resultados";
             $GLOBALS['titulo']="Resultados";

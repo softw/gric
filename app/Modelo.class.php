@@ -359,26 +359,6 @@ class Modelo
      * detalles personas
      */
     
-     public static function insertar_persona($id_proyecto,$direccion,$ciudad,$telefono,$cargo,$dependencia,$entidad,$rol,$dedicacion,$pApellido,$sApellido,$nombres,$sexo,$fechaNa,$paisNa,$tipoId,$numeroId,$email,$respon,$titulos,$expEmpresarial,$expDocente,$resumen,$referencias)
-    {
-         try{
-            
-            $conexion = Conexion::singleton_conexion();
-            $sql="INSERT INTO personas(id_proyecto,rol_proyecto,entidad,nombres,primer_apellido,segundo_apellido,genero,fecha_nacimiento,pais,email,tipo_identificacion,numero_identificacion,responsabilidades,dedicacion_horas,titulos_certificaciones,experiencia_empresarial,experiencia_docente,resumen_hoja_vida,referencias,direccion_oficina,telefono,cargo,dependencia,ciudad_labora)";           
-            $sql.="VALUES ($id_proyecto,'$rol','$entidad','$nombres','$pApellido','$sApellido','$sexo',$fechaNa,'$paisNa','$email','$tipoId',$numeroId,'$respon',$dedicacion,$titulos,$expEmpresarial,$expDocente,$resumen,$referencias,$direccion,$telefono,$cargo,$dependencia,$ciudad)";
-            $query =$conexion->prepare($sql);
-            $filasafectadas=$query->execute();
-            $conexion= null;
-            if($filasafectadas > 0): return true;           
-                else: return false;           
-            endif;
-        } 
-        catch (Exception $ex) 
-        {
-            print "Error!: " . $ex->getMessage();
-        } 
-        
-    } 
     
    public static function insertar_persona_basico($id_proyecto,$rol,$entidad,$nombres,$pApellido,$sApellido,$sexo,$fechaNa,$paisNa,$email,$tipoId,$numeroId,$respon,$dedicacion)/*14 items*/
     {

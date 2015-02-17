@@ -6,8 +6,7 @@
 	<title><?php echo $GLOBALS['titulo'] ?></title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/main.css">
-        <script src="js/vendor/jquery-1.10.2.min.js"></script>
-        <script src="js/main.js"></script>
+        
 </head>
 
 <body>               
@@ -75,5 +74,8 @@
 		Todos los derechos reservados
             </div>
 	</footer>
+        <script src="js/jquery1.11.js"></script>
+        <script src="js/ajax.js"></script>
+        <script src="js/main.js"></script>
     </body>
 </html>

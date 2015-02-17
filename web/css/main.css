@@ -261,6 +261,11 @@ footer
     margin-right: 5%;
     display: inline-block;
 }
+
+.resultados
+{
+    margin-bottom: 10px;
+}
 .ruta
 {
     font-size: 12px;

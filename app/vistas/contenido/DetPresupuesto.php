@@ -14,7 +14,6 @@
             <th rowspan="2">Total</th>
         </tr>
         <tr>
-
             <td>Especie</td>
             <td>%</td>
             <td>Dinero</td>
@@ -33,6 +32,7 @@
             <td><input class="input-pk" type="number" name="dinero" ></td>
             <td><input class="input-micro" type="number" name="dinero%" ></td>
             <td><input class="input-md" type="number" name="total" placeholder="agregar"></td>
+            <input type="submit" value="Guardar">
         </form>
                 
                 <?php elseif($parametros['presupuesto']==FALSE): ?>
